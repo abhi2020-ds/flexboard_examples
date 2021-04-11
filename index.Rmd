@@ -130,8 +130,8 @@ addCircles(lng =df_new$longitude, lat = df_new$latitude, weight = 2,
 *** 
 <p><b>Inference Points :</b></p>
 <p>
-- Ann Arbor have average rating 3.5 across all stores
-- Minneapolis Store has negative sentiments with rating 1.5 with most reviews (94), followed by Indianapolis Store with rating 2 and 60 reviews
+- Pizza restaurants analysis for 3 cities : Chicago, Detroit & Ann Arbor
+- 
 </p>
 \
 &nbsp;
@@ -148,6 +148,20 @@ df_annarbor <- df_good[grepl('\\Ann Arbor', df_good$city),]
 hchart(df_annarbor, "scatter", hcaes(x = review_count, y = rating, z = review_count, group = name))
 ```
 
+*** 
+<p><b>Inference Points :</b></p>
+<p>
+- Pizza restaurants analysis for 3 cities : Chicago, Detroit & Ann Arbor
+- 
+</p>
+\
+&nbsp;
+<p><b>References :</b></p>
+<p>
+- [Yelp API](https://www.yelp.com/developers/documentation/v3)
+- [leaflet visual](http://rstudio.github.io/leaflet/shapes.html)
+</p>
+
 ### Overall distribution of customer reviews across different cities in Midwest along with average customer rating
 
 ```{r}
@@ -155,12 +169,40 @@ df_detroit <- df_good[grepl('\\Detroit', df_good$city),]
 hchart(df_detroit, "scatter", hcaes(x = review_count, y = rating, z = review_count, group = name))
 ```
 
+*** 
+<p><b>Inference Points :</b></p>
+<p>
+- Pizza restaurants analysis for 3 cities : Chicago, Detroit & Ann Arbor
+- 
+</p>
+\
+&nbsp;
+<p><b>References :</b></p>
+<p>
+- [Yelp API](https://www.yelp.com/developers/documentation/v3)
+- [leaflet visual](http://rstudio.github.io/leaflet/shapes.html)
+</p>
+
 ### Overall distribution of customer reviews across different cities in Midwest along with average customer rating
 
 ```{r}
 df_chicago <- df_good[grepl('\\Chicago', df_good$city),]
 hchart(df_chicago, "scatter", hcaes(x = review_count, y = rating, z = review_count, group = name))
 ```
+
+*** 
+<p><b>Inference Points :</b></p>
+<p>
+- Pizza restaurants analysis for 3 cities : Chicago, Detroit & Ann Arbor
+- 
+</p>
+\
+&nbsp;
+<p><b>References :</b></p>
+<p>
+- [Yelp API](https://www.yelp.com/developers/documentation/v3)
+- [leaflet visual](http://rstudio.github.io/leaflet/shapes.html)
+</p>
 
 ### Location Markers across Bangalore for Pizza Delivery Store featuring Zomato Ratings
 
@@ -173,3 +215,17 @@ addCircles(lng =as.numeric(pizza_blr$longitude), lat = as.numeric(pizza_blr$lati
   )
 
 ```
+
+*** 
+<p><b>Inference Points :</b></p>
+<p>
+- Pizza restaurants analysis for 3 cities : Chicago, Detroit & Ann Arbor
+- 
+</p>
+\
+&nbsp;
+<p><b>References :</b></p>
+<p>
+- [Yelp API](https://www.yelp.com/developers/documentation/v3)
+- [leaflet visual](http://rstudio.github.io/leaflet/shapes.html)
+</p>
