@@ -34,7 +34,7 @@ require(treemap)
 require(DT)
 require(romato)
 
-df_keys <- read.csv(file = '/Users/Abs/Documents/GitHub/R Sample Codes/R-Codes/keys.csv')
+df_keys <- read.csv(file = '/Users/Abs/Documents/keys.csv')
 
 df_yelp <- df_keys[grepl('\\Yelp', df_keys$name),]
 
@@ -152,8 +152,8 @@ hchart(df_annarbor, "scatter", hcaes(x = review_count, y = rating, z = review_co
 *** 
 <p><b>Ann Arbor Pizza Restaurants Inference Points :</b></p>
 <p>
-- Jolly Pumpkin Cafe at Ann Arbor has 902 reviews with 4 rating
-- NeoPapalis has 313 reviews, however has 4.5 rating
+- Jolly Pumpkin Cafe at Ann Arbor has 902 reviews with 4 rating.
+- NeoPapalis has 313 reviews, however has 4.5 rating.
 </p>
 \
 &nbsp;
@@ -173,8 +173,8 @@ hchart(df_detroit, "scatter", hcaes(x = review_count, y = rating, z = review_cou
 *** 
 <p><b>Detroit's Pizza Restaurants Inference Points</b></p>
 <p>
-- Detroit's Supino Pizzeria has 882 reviews with 4.5 rating, followed by Giovanni Ristorante
-- Ottawa Via is second most in terms of reviews : 664 , with rating 4
+- Detroit's Supino Pizzeria has 882 reviews with 4.5 rating, followed by Giovanni Ristorante.
+- Ottawa Via is second most in terms of reviews : 664 , with rating 4.
 </p>
 \
 &nbsp;
@@ -194,8 +194,8 @@ hchart(df_chicago, "scatter", hcaes(x = review_count, y = rating, z = review_cou
 *** 
 <p><b>Chicago's Pizza Restaurants Inference Points</b></p>
 <p>
-- Chicago's Pequod's Pizzeria has 6k reviews with 4 rating, followed by Lou Molnati's Pizzeria
-- Coalfire Pizza has most rating with 4.5 with 1k reviews
+- Chicago's Pequod's Pizzeria has 6k reviews with 4 rating, followed by Lou Molnati's Pizzeria.
+- Coalfire Pizza has most rating with 4.5 with 1k reviews.
 </p>
 \
 &nbsp;
@@ -220,8 +220,8 @@ addCircles(lng =as.numeric(pizza_blr$longitude), lat = as.numeric(pizza_blr$lati
 *** 
 <p><b>Inference Points :</b></p>
 <p>
-- BTM Layout in Bangalore is rocking it ! With 4.2 rating and 15k votes.
-- Soulspace in Marthalli needs to up their game, 3.1 rating around 5k votes.
+- Byg Brewery in Sirjapur Rd has 37k reviews with 4.5 rating.
+- La Pino'z Pizza is next with 19k reviews and 4.2 rating.
 </p>
 \
 &nbsp;
