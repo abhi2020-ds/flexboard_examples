@@ -122,16 +122,17 @@ pizza_aus <- zmt$search(query = "Pizza", lat = -33.865143, lon = 151.209900)
 leaflet(df_new) %>% 
 addTiles() %>%
 addCircles(lng =df_new$longitude, lat = df_new$latitude, weight = 2,
-             radius = df_new$review_count*5, popup=paste(df_new$name," - ",df_new$address1,",",df_new$city," , rating :",df_new$rating," review : ",df_new$review_count)
+             radius = df_new$review_count*1, popup=paste(df_new$name," - ",df_new$address1,",",df_new$city," , rating :",df_new$rating," review : ",df_new$review_count)
   )
 
 ```
 
 *** 
-<p><b>Inference Points :</b></p>
+<p><b>Geo Spatial Inference Points :</b></p>
 <p>
 - Pizza restaurants analysis for 3 cities : Chicago, Detroit & Ann Arbor
-- 
+- Jolly Pumpkin Cafe at Ann Arbor has 902 reviews with 4 rating
+- Chicago's Pequod's Pizzeria has 335 reviews with 4 rating
 </p>
 \
 &nbsp;
@@ -141,7 +142,7 @@ addCircles(lng =df_new$longitude, lat = df_new$latitude, weight = 2,
 - [leaflet visual](http://rstudio.github.io/leaflet/shapes.html)
 </p>
 
-### Overall distribution of customer reviews across different cities in Midwest along with average customer rating
+### Overall distribution of customer reviews across Ann Arbor Restaurants
 
 ```{r}
 df_annarbor <- df_good[grepl('\\Ann Arbor', df_good$city),]
@@ -149,20 +150,20 @@ hchart(df_annarbor, "scatter", hcaes(x = review_count, y = rating, z = review_co
 ```
 
 *** 
-<p><b>Inference Points :</b></p>
+<p><b>Ann Arbor Pizza Restaurants Inference Points :</b></p>
 <p>
-- Pizza restaurants analysis for 3 cities : Chicago, Detroit & Ann Arbor
-- 
+- Jolly Pumpkin Cafe at Ann Arbor has 902 reviews with 4 rating
+- NeoPapalis has 313 reviews, however has 4.5 rating
 </p>
 \
 &nbsp;
 <p><b>References :</b></p>
 <p>
 - [Yelp API](https://www.yelp.com/developers/documentation/v3)
-- [leaflet visual](http://rstudio.github.io/leaflet/shapes.html)
+- [Highcharter](https://jkunst.com/highcharter/)
 </p>
 
-### Overall distribution of customer reviews across different cities in Midwest along with average customer rating
+### Overall distribution of customer reviews across Detroit Restaurants
 
 ```{r}
 df_detroit <- df_good[grepl('\\Detroit', df_good$city),]
@@ -170,20 +171,20 @@ hchart(df_detroit, "scatter", hcaes(x = review_count, y = rating, z = review_cou
 ```
 
 *** 
-<p><b>Inference Points :</b></p>
+<p><b>Detroit's Pizza Restaurants Inference Points</b></p>
 <p>
-- Pizza restaurants analysis for 3 cities : Chicago, Detroit & Ann Arbor
-- 
+- Detroit's Supino Pizzeria has 882 reviews with 4.5 rating, followed by Giovanni Ristorante
+- Ottawa Via is second most in terms of reviews : 664 , with rating 4
 </p>
 \
 &nbsp;
 <p><b>References :</b></p>
 <p>
 - [Yelp API](https://www.yelp.com/developers/documentation/v3)
-- [leaflet visual](http://rstudio.github.io/leaflet/shapes.html)
+- [Highcharter](https://jkunst.com/highcharter/)
 </p>
 
-### Overall distribution of customer reviews across different cities in Midwest along with average customer rating
+### Overall distribution of customer reviews across Chicago Restaurants
 
 ```{r}
 df_chicago <- df_good[grepl('\\Chicago', df_good$city),]
@@ -191,17 +192,17 @@ hchart(df_chicago, "scatter", hcaes(x = review_count, y = rating, z = review_cou
 ```
 
 *** 
-<p><b>Inference Points :</b></p>
+<p><b>Chicago's Pizza Restaurants Inference Points</b></p>
 <p>
-- Pizza restaurants analysis for 3 cities : Chicago, Detroit & Ann Arbor
-- 
+- Chicago's Pequod's Pizzeria has 6k reviews with 4 rating, followed by Lou Molnati's Pizzeria
+- Coalfire Pizza has most rating with 4.5 with 1k reviews
 </p>
 \
 &nbsp;
 <p><b>References :</b></p>
 <p>
 - [Yelp API](https://www.yelp.com/developers/documentation/v3)
-- [leaflet visual](http://rstudio.github.io/leaflet/shapes.html)
+- [Highcharter](https://jkunst.com/highcharter/)
 </p>
 
 ### Location Markers across Bangalore for Pizza Delivery Store featuring Zomato Ratings
@@ -211,7 +212,7 @@ hchart(df_chicago, "scatter", hcaes(x = review_count, y = rating, z = review_cou
 leaflet(pizza_blr) %>% 
 addTiles() %>%
 addCircles(lng =as.numeric(pizza_blr$longitude), lat = as.numeric(pizza_blr$latitude), weight = 2,
-             radius = ~sqrt(as.numeric(pizza_blr$votes))*10, popup=paste(pizza_blr$locality," , rating :",pizza_blr$aggregate_rating," votes : ",pizza_blr$votes)
+             radius = ~sqrt(as.numeric(pizza_blr$votes))*7, popup=paste(pizza_blr$name,":",pizza_blr$locality," , rating :",pizza_blr$aggregate_rating," votes : ",pizza_blr$votes)
   )
 
 ```
@@ -219,13 +220,74 @@ addCircles(lng =as.numeric(pizza_blr$longitude), lat = as.numeric(pizza_blr$lati
 *** 
 <p><b>Inference Points :</b></p>
 <p>
-- Pizza restaurants analysis for 3 cities : Chicago, Detroit & Ann Arbor
-- 
+- BTM Layout in Bangalore is rocking it ! With 4.2 rating and 15k votes.
+- Soulspace in Marthalli needs to up their game, 3.1 rating around 5k votes.
 </p>
 \
 &nbsp;
 <p><b>References :</b></p>
 <p>
-- [Yelp API](https://www.yelp.com/developers/documentation/v3)
+- [Zomato API](https://developers.zomato.com)
 - [leaflet visual](http://rstudio.github.io/leaflet/shapes.html)
 </p>
+
+
+
+### Overall distribution of Reviews across different localities in Bangalore, India with average customer rating
+
+```{r}
+hchart(pizza_blr, "scatter", hcaes(x = as.numeric(votes), y = as.numeric(aggregate_rating), z = as.numeric(aggregate_rating), group = locality))
+```
+
+*** 
+<p><b>Inference Points :</b></p>
+<p>
+- BTM Layout in Bangalore is rocking it ! With 4.2 rating and 15k votes.
+- Soulspace in Marthalli needs to up their game, 3.1 rating around 5k votes.
+</p>
+\
+&nbsp;
+<p><b>References :</b></p>
+<p>
+- [Zomato API](https://developers.zomato.com)
+- [Highcharter](https://jkunst.com/highcharter/)
+</p>
+
+### Location Markers across Sydney Australia for Pizza Delivery Store featuring Zomato Ratings
+
+```{r}
+leaflet(pizza_blr) %>% 
+addTiles() %>%
+addCircles(lng =as.numeric(pizza_aus$longitude), lat = as.numeric(pizza_aus$latitude), weight = 2,
+             radius = ~sqrt(as.numeric(pizza_aus$votes))*7, popup=paste(pizza_aus$name,":",pizza_aus$locality," , rating :",pizza_aus$aggregate_rating," votes : ",pizza_aus$votes)
+  )
+
+```
+
+*** 
+<p><b>Inference Points :</b></p>
+<p>
+- Sydney Olympic Park seems to be leading ratings 3.4 with 18 reviews.
+- Store in Mascot was rated at 2.5 with 22 reviews.
+</p>
+\
+&nbsp;
+<p><b>References :</b></p>
+<p>
+- [Zomato API](https://developers.zomato.com)
+- [leaflet visual](http://rstudio.github.io/leaflet/shapes.html)
+</p>
+
+### Overall distribution of Reviews across different localities in Sydney, Australia with average customer rating
+
+```{r}
+hchart(pizza_aus, "scatter", hcaes(x = as.numeric(votes), y = as.numeric(aggregate_rating), z = as.numeric(aggregate_rating), group = locality))
+```
+
+
+### Detail Yelp Data around reviews and ratings for stores across Midwest Metro City Areas
+
+```{r}
+datatable(df_good)
+```
+
