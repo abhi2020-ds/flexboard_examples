@@ -1,0 +1,2932 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<title>Customer Sentiments Analysis Dashboard</title>
+
+<meta property="og:title" content="Customer Sentiments Analysis Dashboard" />
+
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+
+<link rel="icon" href="data:image/x-icon;" type="image/x-icon">
+
+
+<script type="text/javascript">
+window.FlexDashboardComponents = [];
+</script>
+
+<script id="flexdashboard-navbar" type="application/json">
+[{"icon":"fa-share-alt","items":[{"title":"Twitter","icon":"fa-twitter"},{"title":"Facebook","icon":"fa-facebook"},{"title":"Google+","icon":"fa-google-plus"},{"title":"LinkedIn","icon":"fa-linkedin"},{"title":"Pinterest","icon":"fa-pinterest"}]},{"title":"Source Code","icon":"fa-code","href":"source_embed","align":"right"}]
+</script>
+<script src="site_libs/jquery-3.5.0/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/spacelab.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<script src="site_libs/sly-1.6.1/sly.min.js"></script>
+<script src="site_libs/stickytableheaders-0.1.19/jquery.stickytableheaders.min.js"></script>
+<link href="site_libs/featherlight-1.3.5/featherlight.min.css" rel="stylesheet" />
+<script src="site_libs/featherlight-1.3.5/featherlight.min.js"></script>
+<link href="site_libs/prism-1.4.1/prism.css" rel="stylesheet" />
+<script src="site_libs/prism-1.4.1/prism.js"></script>
+<script src="site_libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<link href="site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="site_libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="site_libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="site_libs/leaflet-binding-2.0.4.1/leaflet.js"></script>
+<script src="site_libs/proj4js-2.3.15/proj4.js"></script>
+<link href="site_libs/highcharts-8.1.2/css/motion.css" rel="stylesheet" />
+<script src="site_libs/highcharts-8.1.2/highcharts.js"></script>
+<script src="site_libs/highcharts-8.1.2/highcharts-3d.js"></script>
+<script src="site_libs/highcharts-8.1.2/highcharts-more.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/stock.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/map.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/annotations.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/data.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/drilldown.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/item-series.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/offline-exporting.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/overlapping-datalabels.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/exporting.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/export-data.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/funnel.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/heatmap.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/treemap.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/sankey.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/dependency-wheel.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/organization.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/solid-gauge.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/streamgraph.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/sunburst.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/vector.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/wordcloud.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/xrange.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/tilemap.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/venn.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/gantt.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/timeline.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/parallel-coordinates.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/bullet.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/coloraxis.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/dumbbell.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/lollipop.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/series-label.js"></script>
+<script src="site_libs/highcharts-8.1.2/plugins/motion.js"></script>
+<script src="site_libs/highcharts-8.1.2/custom/reset.js"></script>
+<script src="site_libs/highcharts-8.1.2/modules/boost.js"></script>
+<script src="site_libs/highchart-binding-0.8.2/highchart.js"></script>
+<style type="text/css">
+
+/*
+ Dashboard CSS from Keen IO Dashboards
+ (https://github.com/keen/dashboards)
+*/
+
+body {
+  background: #f2f2f2;
+  padding: 60px 0 0 8px; /* padding-top overridden by theme */
+}
+
+body hr {
+  border-color: #d7d7d7;
+  margin: 10px 0;
+}
+
+.navbar-inverse .navbar-nav > li > a,
+.navbar .navbar-brand {
+  text-decoration: none;
+}
+
+.navbar-logo {
+  margin-top: 1px;
+}
+
+.navbar-logo img {
+  margin-right: 12px;
+}
+
+.navbar-author {
+  margin-left: 10px;
+  font-size: 15px;
+}
+
+.navbar .dropdown-menu .fa {
+  min-width: 20px;
+}
+
+.navbar .dropdown-menu {
+  min-width: 150px;
+  max-height: 500px;
+  overflow: auto;
+}
+
+.chart-wrapper,
+.nav-tabs-custom,
+.sbframe-commentary
+{
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 3px;
+  margin-bottom: 8px;
+  margin-right: 8px;
+}
+
+.chart-title {
+  border-bottom: 1px solid #d7d7d7;
+  color: #666;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 7px 10px 4px;
+}
+
+.chart-wrapper .chart-title:empty {
+  display: none;
+}
+
+.chart-wrapper .chart-stage {
+  overflow: hidden;
+  padding: 5px 10px;
+  position: relative;
+}
+
+.chart-wrapper .chart-notes {
+  background: #fbfbfb;
+  border-top: 1px solid #e2e2e2;
+  color: #808080;
+  font-size: 12px;
+  padding: 8px 10px 5px;
+}
+
+/*
+ CSS for handling flexbox layout
+*/
+
+#dashboard-container {
+  visibility: hidden;
+}
+
+.tab-content>.dashboard-page-wrapper.active {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.dashboard-page-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.dashboard-row-orientation {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.dashboard-row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.dashboard-row-flex {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.dashboard-column-orientation {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.dashboard-column {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.chart-wrapper-flex {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.chart-stage-flex {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  position: relative;
+}
+
+.chart-shim {
+  position: absolute;
+  left: 8px; top: 8px; right: 8px; bottom: 8px;
+}
+
+.no-padding .chart-shim {
+  left: 0; top: 0; right: 0; bottom: 0;
+}
+
+.flowing-content-shim {
+  overflow: auto;
+  left: 0; top: 0; right: 0; bottom: 0;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.flowing-content-container {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.chart-stage .table-bordered {
+  border: none;
+}
+
+.chart-stage .table-bordered > tbody > tr > th,
+.chart-stage .table-bordered > tfoot > tr > th,
+.chart-stage .table-bordered > tbody > tr > td,
+.chart-stage .table-bordered > tfoot > tr > td {
+  border: none;
+}
+
+.chart-stage .table-bordered > tbody > tr > td {
+  border-top: 1px solid #dddddd;
+}
+
+.chart-stage .table-bordered > thead > tr > th {
+  border: none;
+  border-bottom: 2px solid #dddddd;
+}
+
+.bootstrap-table table>thead {
+  background-color: #fff;
+}
+
+.bootstrap-table table.data,
+.bootstrap-table table.shiny-table {
+  width: inherit !important;
+}
+
+.bootstrap-table table.data>tbody>tr>th,
+.bootstrap-table table.shiny-table>tbody>tr>th {
+  border-top: none;
+  border-bottom: 2px solid #dddddd;
+  padding: 5px;
+}
+
+.bootstrap-table .data td[align=right] {
+  font-family: inherit;
+}
+
+.chart-wrapper form {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.shiny-input-container label {
+  font-weight: normal;
+}
+
+.chart-stage .html-widget {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.chart-stage .html-widget-static-bound {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.chart-stage .shiny-bound-output {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Omit display of empty paragraphs */
+
+.chart-shim>p:empty {
+  display: none;
+}
+
+.chart-stage>p:empty {
+  display: none;
+}
+
+/* Omit display of special knitr options div*/
+
+.chart-stage .knitr-options {
+  display: none;
+}
+
+/* Automatically resizing images */
+
+.image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+}
+
+.image-container img {
+  opacity: 0;
+  overflow: hidden;
+}
+
+/* Value box */
+
+.value-box {
+  border-radius: 2px;
+  position: relative;
+  display: block;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.value-box > .inner {
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.value-box .value {
+  font-size: 38px;
+  font-weight: bold;
+  margin: 0 0 3px 0;
+  white-space: nowrap;
+  padding: 0;
+}
+
+.value-box .caption {
+  font-size: 15px;
+}
+.value-box .caption > small {
+  display: block;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.value-box .icon i {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 80px;
+  color: rgba(0, 0, 0, 0.15);
+}
+
+.linked-value:hover {
+  cursor: pointer;
+}
+
+.value-box.linked-value:hover {
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* STORYBOARD */
+
+.storyboard-nav button {
+  background: transparent;
+  border: 0;
+  opacity: .3;
+  outline: none;
+  padding: 0;
+}
+
+.storyboard-nav button:hover,
+.storyboard-nav button:hover {
+  opacity: .5;
+}
+
+.storyboard-nav button:disabled,
+.storyboard-nav button:disabled {
+  opacity: .1;
+}
+
+.storyboard-nav .sbnext,
+.storyboard-nav .sbprev {
+  float: left;
+  width: 2%;
+  height: 120px;
+  font-size: 50px;
+}
+
+.storyboard-nav .sbprev {
+  text-align: left;
+  width: 2%;
+}
+
+.storyboard-nav .sbnext {
+  float: right;
+  text-align: right;
+  margin-right: 8px;
+}
+
+.storyboard-nav .sbframelist {
+  margin: 0 auto;
+  width: 94%;
+  height: 120px;
+  overflow: hidden;
+  text-shadow: none;
+  margin-bottom: 8px;
+}
+
+.storyboard-nav .sbframelist ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.storyboard-nav .sbframelist ul li {
+  float: left;
+  width: 270px;
+  height: 100%;
+  padding: 10px 10px 10px 10px;
+  margin-right: 8px;
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 3px;
+  color: #3a3c47;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.storyboard-nav .sbframelist ul li:last-child {
+  margin-right: 0px;
+}
+
+.storyboard-nav .sbframelist ul li.active {
+  color: #fff;
+  background: #B8B8B8;
+}
+
+.sbframe-commentary {
+  width: 300px;
+  background: #fbfbfb;
+  font-size: 14px;
+}
+
+.sbframe-commentary ul {
+  padding-left: 22px;
+}
+
+.sbframe.active {
+  display: flex;
+}
+
+.sbframe:not(.active) {
+  display: none;
+}
+
+/* NAV TABS */
+
+.nav-tabs-custom > .nav-tabs {
+  margin: 0;
+  border-bottom: 1px solid #d7d7d7;
+  color: #666;
+  font-size: 14px;
+  font-weight: 300;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+}
+.nav-tabs-custom > .nav-tabs > li {
+  border-top: 3px solid transparent;
+  margin-bottom: -1px;
+  margin-right: 5px;
+}
+.nav-tabs-custom > .nav-tabs > li > a,
+.nav-tabs-custom > .nav-tabs > li > a:active {
+  color: #666;
+  font-weight: 300;
+  font-size: 14px;
+  border-radius: 0;
+  padding: 3px 10px 5px;
+  text-transform: none;
+}
+
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a {
+  border-bottom-color: transparent;
+}
+
+.nav-tabs-custom > .nav-tabs > li > a.text-muted {
+  color: #999;
+}
+.nav-tabs-custom > .nav-tabs > li > a,
+.nav-tabs-custom > .nav-tabs > li > a:hover {
+  background: transparent;
+  margin: 0;
+}
+.nav-tabs-custom > .nav-tabs > li > a:hover {
+  color: #999;
+}
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a:hover,
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a:focus,
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a:active {
+  border-color: transparent;
+}
+.nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: #3c8dbc;
+}
+.nav-tabs-custom > .nav-tabs > li.active > a,
+.nav-tabs-custom > .nav-tabs > li.active:hover > a {
+  background-color: #fff;
+  color: #666;
+}
+.nav-tabs-custom > .nav-tabs > li.active > a {
+  border-top-color: transparent;
+  border-left-color: #d7d7d7;
+  border-right-color: #d7d7d7;
+}
+.nav-tabs-custom > .nav-tabs > li:first-of-type {
+  margin-left: 0;
+}
+.nav-tabs-custom > .nav-tabs > li:first-of-type.active > a {
+  border-left-color: transparent;
+}
+.nav-tabs-custom > .nav-tabs.pull-right {
+  float: none !important;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li {
+  float: right;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type {
+  margin-right: 0;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type > a {
+  border-left-width: 1px;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type.active > a {
+  border-left-color: #d7d7d7;
+  border-right-color: transparent;
+}
+.nav-tabs-custom > .nav-tabs > li.header {
+  line-height: 35px;
+  padding: 0 10px;
+  font-size: 20px;
+  color: #666;
+}
+.nav-tabs-custom > .nav-tabs > li.header > .fa,
+.nav-tabs-custom > .nav-tabs > li.header > .glyphicon,
+.nav-tabs-custom > .nav-tabs > li.header > .ion {
+  margin-right: 5px;
+}
+.nav-tabs-custom > .tab-content {
+  background: #fff;
+  padding: 0;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.nav-tabs-custom > .tab-content > .chart-wrapper {
+  background: #fff;
+  border: none;
+  margin: 0;
+}
+
+
+.nav-tabs-custom > .tab-content > .active {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.nav-tabs-custom .dropdown.open > a:active,
+.nav-tabs-custom .dropdown.open > a:focus {
+  background: transparent;
+  color: #999;
+}
+
+
+@media (max-width: 767px) {
+  .value-box {
+    text-align: center;
+    margin-right: 8px;
+  }
+  .value-box .icon {
+    display: none;
+  }
+}
+
+/* Fixed position sidebar */
+
+.section.sidebar {
+  position: fixed;
+  top: 51px; /* overridden by theme */
+  left: 0;
+  bottom: 0;
+  border-right: 1px solid #e2e2e2;
+  background-color: white; /* overridden by theme */
+  padding-left: 10px;
+  padding-right: 10px;
+  visibility: hidden;
+  overflow: auto;
+}
+
+.section.sidebar form p:first-child {
+  margin-top: 10px;
+}
+
+/* Embedded source code */
+
+#flexdashboard-source-code {
+  display: none;
+}
+
+.featherlight-content #flexdashboard-source-code {
+  display: inline-block;
+}
+
+.featherlight-content {
+  width: 80%;
+  max-width: 800px;
+  padding: 0 !important;
+  border-bottom: none !important;
+}
+
+.featherlight:last-of-type {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.featherlight-inner {
+  width: 100%;
+}
+
+.featherlight-content pre {
+  margin: 0;
+  border: 0;
+  background: #fff;
+  font-size: 12px;
+}
+
+.unselectable {
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: -moz-none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+#flexdashboard-source-code code {
+  -ms-user-select: text;
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -o-user-select: text;
+  user-select: text;
+}
+
+/* DataTables Tweaks */
+
+.dataTables_filter input[type="search"] {
+  -webkit-appearance: searchfield;
+  outline: none;
+}
+
+.dataTables_wrapper.no-footer
+.dataTables_info {
+  padding-top: 0;
+}
+
+
+table.dataTable thead th {
+  border-bottom: 1px solid #d7d7d7;
+}
+
+.dataTables_wrapper.no-footer .dataTables_scrollBody {
+  border-bottom: 1px solid #d7d7d7;
+}
+
+/* Mobile phone only CSS */
+
+.desktop-layout div.section.mobile {
+  display: none;
+}
+
+.mobile-layout div.section.no-mobile {
+  display: none;
+}
+
+.mobile-figure {
+  display: none;
+}
+
+
+
+body {
+  padding-top: 61px;
+}
+
+.section.sidebar {
+  top: 52px;
+  background-color: rgba(68, 110, 155, 0.1);
+}
+
+.value-box {
+  color: inherit;
+}
+
+.bg-primary {
+  background-color: rgba(68, 110, 155, 0.25);
+}
+
+.storyboard-nav .sbframelist ul li.active {
+   background-color: rgba(68, 110, 155, 0.7);
+}
+
+.nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: rgba(68, 110, 155, 0.7);
+}
+@media only screen and (min-width: 768px) {
+html, body {
+  height: 100%;
+}
+
+#dashboard-container {
+  height: 100%;
+}
+}
+</style>
+
+
+
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+
+<button id="navbar-button" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+
+<span class="navbar-logo pull-left">
+  <img src="Logo.png" class="navbar-logo"/>
+</span>
+<span class="navbar-brand">
+  Customer Sentiments Analysis Dashboard
+  <span class="navbar-author">
+        </span>
+</span>
+
+</div>
+<div id="navbar" class="navbar-collapse collapse">
+<ul class="nav navbar-nav navbar-left">
+</ul>
+<ul class="nav navbar-nav navbar-right">
+</ul>
+</div><!--/.nav-collapse-->
+</div><!--/.container-->
+</div><!--/.navbar-->
+
+<script type="text/javascript">
+
+
+var FlexDashboard = (function () {
+
+  // initialize options
+  var _options = {};
+
+  var FlexDashboard = function() {
+
+    // default options
+    _options = $.extend(_options, {
+      theme: "cosmo",
+      fillPage: false,
+      orientation: 'columns',
+      storyboard: false,
+      defaultFigWidth: 576,
+      defaultFigHeight: 461,
+      defaultFigWidthMobile: 360,
+      defaultFigHeightMobile: 461,
+      isMobile: false,
+      isPortrait: false,
+      resize_reload: true
+    });
+  };
+
+  function init(options) {
+
+    // extend default options
+    $.extend(true, _options, options);
+
+    // add ids to sections that don't have them (pandoc won't assign ids
+    // to e.g. sections with titles consisting of only chinese characters)
+    var nextId = 1;
+    $('.level1:not([id]),.level2:not([id]),.level3:not([id])').each(function() {
+      $(this).attr('id', 'dashboard-' + nextId++);
+    });
+
+    // find navbar items
+    var navbarItems = $('#flexdashboard-navbar');
+    if (navbarItems.length)
+      navbarItems = JSON.parse(navbarItems.html());
+    addNavbarItems(navbarItems);
+
+    // find the main dashboard container
+    var dashboardContainer = $('#dashboard-container');
+
+    // resolve mobile classes
+    resolveMobileClasses(dashboardContainer);
+
+    // one time global initialization for components
+    componentsInit(dashboardContainer);
+
+    // look for a global sidebar
+    var globalSidebar = dashboardContainer.find(".section.level1.sidebar");
+    if (globalSidebar.length > 0) {
+
+      // global layout for fullscreen displays
+      if (!isMobilePhone()) {
+
+         // hoist it up to the top level
+         globalSidebar.insertBefore(dashboardContainer);
+
+         // lay it out (set width/positions)
+         layoutSidebar(globalSidebar, dashboardContainer);
+
+      // tuck sidebar into first page for mobile phones
+      } else {
+
+        // convert it into a level3 section
+        globalSidebar.removeClass('sidebar');
+        globalSidebar.removeClass('level1');
+        globalSidebar.addClass('level3');
+        var h1 = globalSidebar.children('h1');
+        var h3 = $('<h3></h3>');
+        h3.append(h1.contents());
+        h3.insertBefore(h1);
+        h1.detach();
+
+        // move it into the first page
+        var page = dashboardContainer.find('.section.level1').first();
+        if (page.length > 0)
+          page.prepend(globalSidebar);
+      }
+    }
+
+    // look for pages to layout
+    var pages = $('div.section.level1');
+    if (pages.length > 0) {
+
+        // find the navbar and collapse on clicked
+        var navbar = $('#navbar');
+        navbar.on("click", "a[data-toggle!=dropdown]", null, function () {
+           navbar.collapse('hide');
+        });
+
+        // envelop the dashboard container in a tab content div
+        dashboardContainer.wrapInner('<div class="tab-content"></div>');
+
+        pages.each(function(index) {
+
+          // lay it out
+          layoutDashboardPage($(this));
+
+          // add it to the navbar
+          addToNavbar($(this), index === 0);
+
+        });
+
+    } else {
+
+      // remove the navbar and navbar button if we don't
+      // have any navbuttons
+      if (navbarItems.length === 0) {
+        $('#navbar').remove();
+        $('#navbar-button').remove();
+      }
+
+      // add the storyboard class if requested
+      if (_options.storyboard)
+        dashboardContainer.addClass('storyboard');
+
+      // layout the entire page
+      layoutDashboardPage(dashboardContainer);
+    }
+
+    // if we are in shiny we need to trigger a window resize event to
+    // force correct layout of shiny-bound-output elements
+    if (isShinyDoc())
+      $(window).trigger('resize');
+
+    // make main components visible
+    $('.section.sidebar').css('visibility', 'visible');
+    dashboardContainer.css('visibility', 'visible');
+
+    // handle location hash
+    handleLocationHash();
+
+    // intialize prism highlighting
+    initPrismHighlighting();
+
+    // record mobile and orientation state then register a handler
+    // to refresh if resize_reload is set to true and it changes
+    _options.isMobile = isMobilePhone();
+    _options.isPortrait = isPortrait();
+    if (_options.resize_reload) {
+      $(window).on('resize', function() {
+        if (_options.isMobile !== isMobilePhone() ||
+            _options.isPortrait !== isPortrait()) {
+          window.location.reload();
+        }
+      });
+    } else {
+      // if in desktop mode and resizing to mobile, make sure the heights are 100%
+      // This enforces what `fillpage.css` does for "wider" pages.
+      // Since we are not reloading once the page becomes small, we need to force the height to 100%
+      // This is a new situation introduced when `_options.resize_reload` is `false`
+      if (! _options.isMobile) {
+        // only add if `fillpage.css` was added in the first place
+        if (_options.fillPage) {
+          // fillpage.css
+          $("html,body,#dashboard").css("height", "100%");
+        }
+      }
+    }
+    // trigger layoutcomplete event
+    dashboardContainer.trigger('flexdashboard:layoutcomplete');
+  }
+
+  function resolveMobileClasses(dashboardContainer) {
+     // add top level layout class
+    dashboardContainer.addClass(isMobilePhone() ? 'mobile-layout' :
+                                                  'desktop-layout');
+
+    // look for .mobile sections and add .no-mobile to their peers
+    var mobileSections = $('.section.mobile');
+    mobileSections.each(function() {
+       var id = $(this).attr('id');
+       var nomobileId = id.replace(/-\d+$/, '');
+       $('#' + nomobileId).addClass('no-mobile');
+    });
+  }
+
+  function addNavbarItems(navbarItems) {
+
+    var navbarLeft = $('ul.navbar-left');
+    var navbarRight = $('ul.navbar-right');
+
+    for (var i = 0; i<navbarItems.length; i++) {
+
+      // get the item
+      var item = navbarItems[i];
+
+      // determine the container
+      var container = null;
+      if (item.align === "left")
+        container = navbarLeft;
+      else
+        container = navbarRight;
+
+      // navbar menu if we have multiple items
+      if (item.items) {
+        var menu = navbarMenu(null, item.icon, item.title, container);
+        for (var j = 0; j<item.items.length; j++) {
+          var subItem = item.items[j];
+          var li = $('<li></li>');
+          li.append(navbarLink(subItem.icon, subItem.title, subItem.href, subItem.target));
+          menu.append(li);
+        }
+      } else {
+        var li = $('<li></li>');
+        li.append(navbarLink(item.icon, item.title, item.href, item.target));
+        container.append(li);
+      }
+    }
+  }
+
+  // create or get a reference to an existing dropdown menu
+  function navbarMenu(id, icon, title, container) {
+    var existingMenu = [];
+    if (id)
+      existingMenu = container.children('#' + id);
+    if (existingMenu.length > 0) {
+      return existingMenu.children('ul');
+    } else {
+      var li = $('<li></li>');
+      if (id)
+        li.attr('id', id);
+      li.addClass('dropdown');
+      // auto add "Share" title on mobile if necessary
+      if (!title && icon && (icon === "fa-share-alt") && isMobilePhone())
+        title = "Share";
+      if (title) {
+        title = title + ' <span class="caret"></span>';
+      }
+      var a = navbarLink(icon, title, "#");
+      a.addClass('dropdown-toggle');
+      a.attr('data-toggle', 'dropdown');
+      a.attr('role', 'button');
+      a.attr('aria-expanded', 'false');
+      li.append(a);
+      var ul = $('<ul class="dropdown-menu"></ul>');
+      ul.attr('role', 'menu');
+      li.append(ul);
+      container.append(li);
+      return ul;
+    }
+  }
+
+  function addToNavbar(page, active) {
+
+    // capture the id and data-icon attribute (if any)
+    var id = page.attr('id');
+    var icon = page.attr('data-icon');
+    var navmenu = page.attr('data-navmenu');
+
+    // get hidden state (transfer this to navbar)
+    var hidden = page.hasClass('hidden');
+    page.removeClass('hidden');
+
+    // sanitize the id for use with bootstrap tabs
+    id = id.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_');
+    page.attr('id', id);
+
+    // get the wrapper
+    var wrapper = page.closest('.dashboard-page-wrapper');
+
+    // move the id to the wrapper
+    page.removeAttr('id');
+    wrapper.attr('id', id);
+
+    // add the tab-pane class to the wrapper
+    wrapper.addClass('tab-pane');
+    if (active)
+      wrapper.addClass('active');
+
+    // get a reference to the h1, discover its inner contens, then detach it
+    var h1 = wrapper.find('h1').first();
+    var title = h1.contents();
+    h1.detach();
+
+    // create a navbar item
+    var li = $('<li></li>');
+    var a = navbarLink(icon, title, '#' + id);
+    a.attr('data-toggle', 'tab');
+    li.append(a);
+
+    // add it to the navbar (or navbar menu if specified)
+    var container = $('ul.navbar-left');
+    if (navmenu) {
+      var menuId = navmenu.replace(/\s+/g, '');
+      var menu = navbarMenu(menuId, null, navmenu, container);
+      menu.append(li);
+    } else {
+      container.append(li);
+    }
+
+    // hide it if requested
+    if (hidden)
+      li.addClass('hidden');
+  }
+
+  function navbarLink(icon, title, href, target) {
+
+    var a = $('<a></a>');
+    if (icon) {
+
+      // get the name of the icon set and icon
+      var dashPos = icon.indexOf("-");
+      var iconSet = null;
+      var iconSplit = icon.split(" ");
+      if (iconSplit.length > 1) {
+        iconSet = iconSplit[0];
+        icon = iconSplit.slice(1).join(" ");
+      } else {
+        iconSet = icon.substring(0, dashPos);
+      }
+      var iconName = icon.substring(dashPos + 1);
+
+      // create the icon
+      var iconElement = $('<span class="' + iconSet + ' ' + icon + '"></span>');
+      if (title)
+        iconElement.css('margin-right', '7px');
+      a.append(iconElement);
+      // if href is null see if we can auto-generate based on icon (e.g. social)
+      if (!href)
+        maybeGenerateLinkFromIcon(iconName, a);
+    }
+    if (title)
+      a.append(title);
+
+    // add the href.
+    if (href) {
+      if (href === "source_embed") {
+        a.attr('href', '#');
+        a.attr('data-featherlight', "#flexdashboard-source-code");
+        a.featherlight({
+            beforeOpen: function(event){
+              $('body').addClass('unselectable');
+            },
+            afterClose: function(event){
+              $('body').removeClass('unselectable');
+            }
+        });
+      } else {
+        a.attr('href', href);
+      }
+    }
+
+    // add the arget
+    if (target)
+      a.attr('target', target);
+
+    return a;
+  }
+
+  // auto generate a link from an icon name (e.g. twitter) when possible
+  function maybeGenerateLinkFromIcon(iconName, a) {
+
+     var serviceLinks = {
+      "twitter": "https://twitter.com/share?text=" + encodeURIComponent(document.title) + "&url="+encodeURIComponent(location.href),
+      "facebook": "https://www.facebook.com/sharer/sharer.php?s=100&p[url]="+encodeURIComponent(location.href),
+      "google-plus": "https://plus.google.com/share?url="+encodeURIComponent(location.href),
+      "linkedin": "https://www.linkedin.com/shareArticle?mini=true&url="+encodeURIComponent(location.href) + "&title=" + encodeURIComponent(document.title),
+      "pinterest": "https://pinterest.com/pin/create/link/?url="+encodeURIComponent(location.href) + "&description=" + encodeURIComponent(document.title)
+    };
+
+    var makeSocialLink = function(a, href) {
+      a.attr('href', '#');
+      a.on('click', function(e) {
+        e.preventDefault();
+        window.open(href);
+      });
+    };
+
+    $.each(serviceLinks, function(key, value) {
+      if (iconName.indexOf(key) !== -1)
+        makeSocialLink(a, value);
+    });
+  }
+
+  // layout a dashboard page
+  function layoutDashboardPage(page) {
+
+    // use a page wrapper so that free form content above the
+    // dashboard appears at the top rather than the side (as it
+    // would without the wrapper in a column orientation)
+    var wrapper = $('<div class="dashboard-page-wrapper"></div>');
+    page.wrap(wrapper);
+
+    // if there are no level2 or level3 headers synthesize a level3
+    // header to contain the (e.g. frame it, scroll container, etc.)
+    var headers = page.find('h2,h3');
+    if (headers.length === 0)
+      page.wrapInner('<div class="section level3"></div>');
+
+    // hoist up any content before level 2 or level 3 headers
+    var children = page.children();
+    children.each(function(index) {
+      if ($(this).hasClass('level2') || $(this).hasClass('level3'))
+        return false;
+      $(this).insertBefore(page);
+    });
+
+    // determine orientation and fillPage behavior for distinct media
+    var orientation, fillPage, storyboard;
+
+    // media: mobile phone
+    if (isMobilePhone()) {
+
+      // if there is a sidebar we need to ensure it's content
+      // is properly framed as an h3
+      var sidebar = page.find('.section.sidebar');
+      sidebar.removeClass('sidebar');
+      sidebar.wrapInner('<div class="section level3"></div>');
+      var h2 = sidebar.find('h2');
+      var h3 = $('<h3></h3>');
+      h3.append(h2.contents());
+      h3.insertBefore(h2);
+      h2.detach();
+
+      // wipeout h2 elements then enclose them in a single h2
+      var level2 = page.find('div.section.level2');
+      level2.each(function() {
+        level2.children('h2').remove();
+        level2.children().unwrap();
+      });
+      page.wrapInner('<div class="section level2"></div>');
+
+      // substitute mobile images
+      if (isPortrait()) {
+        var mobileFigures = $('img.mobile-figure');
+        mobileFigures.each(function() {
+          // get the src (might be base64 encoded)
+          var src = $(this).attr('src');
+
+          // find it's peer
+          var id = $(this).attr('data-mobile-figure-id');
+          var img = $('img[data-figure-id=' + id + "]");
+          img.attr('src', src)
+             .attr('width', _options.defaultFigWidthMobile)
+             .attr('height', _options.defaultFigHeightMobile);
+        });
+      }
+
+      // hoist storyboard commentary into it's own section
+      if (page.hasClass('storyboard')) {
+        var commentaryHR = page.find('div.section.level3 hr');
+        commentaryHR.each(function() {
+          var commentary = $(this).nextAll().detach();
+          var commentarySection = $('<div class="section level3"></div>');
+          commentarySection.append(commentary);
+          commentarySection.insertAfter($(this).closest('div.section.level3'));
+          $(this).remove();
+        });
+      }
+
+      // force a non full screen layout by columns
+      orientation = _options.orientation = 'columns';
+      fillPage = _options.fillPage = false;
+      storyboard = _options.storyboard = false;
+
+    // media: desktop
+    } else {
+
+      // determine orientation
+      orientation = page.attr('data-orientation');
+      if (orientation !== 'rows' && orientation != 'columns')
+        orientation = _options.orientation;
+
+      // determine storyboard mode
+      storyboard = page.hasClass('storyboard');
+
+      // fillPage based on options (force for storyboard)
+      fillPage = _options.fillPage || storyboard;
+
+      // handle sidebar
+      var sidebar = page.find('.section.level2.sidebar');
+      if (sidebar.length > 0)
+        layoutSidebar(sidebar, page);
+    }
+
+    // give it and it's parent divs height: 100% if we are in fillPage mode
+    if (fillPage) {
+      page.addClass('vertical-layout-fill');
+      page.css('height', '100%');
+      page.parents('div').css('height', '100%');
+    } else {
+      page.addClass('vertical-layout-scroll');
+    }
+
+    // perform the layout
+    if (storyboard)
+      layoutPageAsStoryboard(page);
+    else if (orientation === 'rows')
+      layoutPageByRows(page, fillPage);
+    else if (orientation === 'columns')
+      layoutPageByColumns(page, fillPage);
+  }
+
+  function layoutSidebar(sidebar, content) {
+
+    // get it out of the header hierarchy
+    sidebar = sidebar.first();
+    if (sidebar.hasClass('level1')) {
+      sidebar.removeClass('level1');
+      sidebar.children('h1').remove();
+    } else if (sidebar.hasClass('level2')) {
+      sidebar.removeClass('level2');
+      sidebar.children('h2').remove();
+    }
+
+    // determine width
+    var sidebarWidth = isTablet() ? 220 : 250;
+    var dataWidth = parseInt(sidebar.attr('data-width'));
+    if (dataWidth)
+      sidebarWidth = dataWidth;
+
+    // set the width and shift the page right to accomodate the sidebar
+    sidebar.css('width', sidebarWidth + 'px');
+    content.css('padding-left', sidebarWidth + 'px');
+
+    // wrap it's contents in a form
+    sidebar.wrapInner($('<form></form>'));
+  }
+
+  function layoutPageAsStoryboard(page) {
+
+    // create storyboard navigation
+    var nav = $('<div class="storyboard-nav"></div>');
+
+    // add navigation buttons
+    var prev = $('<button class="sbprev"><i class="fa fa-angle-left"></i></button>');
+    nav.append(prev);
+    var next= $('<button class="sbnext"><i class="fa fa-angle-right"></i></button>');
+    nav.append(next);
+
+    // add navigation frame
+    var frameList = $('<div class="sbframelist"></div>');
+    nav.append(frameList);
+    var ul = $('<ul></ul>');
+    frameList.append(ul);
+
+     // find all the level3 sections (those are the storyboard frames)
+    var frames = page.find('div.section.level3');
+    frames.each(function() {
+
+      // mark it
+      $(this).addClass('sbframe');
+
+      // divide it into chart content and (optional) commentary
+      $(this).addClass('dashboard-column-orientation');
+
+      // stuff the chart into it's own div w/ flex
+      $(this).wrapInner('<div class="sbframe-component"></div>');
+      setFlex($(this), 1);
+      var frame = $(this).children('.sbframe-component');
+
+      // extract the title from the h3
+      var li = $('<li></li>');
+      var h3 = frame.children('h3');
+      li.append(h3.contents());
+      h3.detach();
+      ul.append(li);
+
+      // extract commentary
+      var hr = frame.children('hr');
+      if (hr.length) {
+        var commentary = hr.nextAll().detach();
+        hr.remove();
+        var commentaryFrame = $('<div class="sbframe-commentary"></div>');
+        commentaryFrame.addClass('flowing-content-shim');
+        commentaryFrame.addClass('flowing-content-container');
+        commentaryFrame.append(commentary);
+        $(this).append(commentaryFrame);
+
+        // look for a data-commentary-width attribute
+        var commentaryWidth = $(this).attr('data-commentary-width');
+        if (commentaryWidth)
+          commentaryFrame.css('width', commentaryWidth + 'px');
+      }
+
+      // layout the chart (force flex)
+      var result = layoutChart(frame, true);
+
+      // ice the notes if there are none
+      if (!result.notes)
+        frame.find('.chart-notes').remove();
+
+      // set flex on chart
+      setFlex(frame, 1);
+    });
+
+    // create a div to hold all the frames
+    var frameContent = $('<div class="sbframe-content"></div>');
+    frameContent.addClass('dashboard-row-orientation');
+    frameContent.append(frames.detach());
+
+    // row orientation to stack nav and frame content
+    page.addClass('dashboard-row-orientation');
+    page.append(nav);
+    page.append(frameContent);
+    setFlex(frameContent, 1);
+
+    // initialize sly
+    var sly = new Sly(frameList, {
+    		horizontal: true,
+    		itemNav: 'basic',
+    		smart: true,
+    		activateOn: 'click',
+    		startAt: 0,
+    		scrollBy: 1,
+    		activatePageOn: 'click',
+    		speed: 200,
+    		moveBy: 600,
+    		dragHandle: true,
+    		dynamicHandle: true,
+    		clickBar: true,
+    		keyboardNavBy: 'items',
+    		next: next,
+    		prev: prev
+    	}).init();
+
+    // make first frame active
+    frames.removeClass('active');
+    frames.first().addClass('active');
+
+    // subscribe to frame changed events
+    sly.on('active', function (eventName, itemIndex) {
+      frames.removeClass('active');
+      frames.eq(itemIndex).addClass('active')
+                          .trigger('shown');
+    });
+  }
+
+  function layoutPageByRows(page, fillPage) {
+
+    // row orientation
+    page.addClass('dashboard-row-orientation');
+
+    // find all the level2 sections (those are the rows)
+    var rows = page.find('div.section.level2');
+
+    // if there are no level2 sections then treat the
+    // entire page as if it's a level 2 section
+    if (rows.length === 0) {
+      page.wrapInner('<div class="section level2"></div>');
+      rows = page.find('div.section.level2');
+    }
+
+    rows.each(function () {
+
+      // flags
+      var haveNotes = false;
+      var haveFlexHeight = true;
+
+      // remove the h2
+      $(this).children('h2').remove();
+
+      // check for a tabset
+      var isTabset = $(this).hasClass('tabset');
+      if (isTabset)
+        layoutTabset($(this));
+
+      // give it row layout semantics if it's not a tabset
+      if (!isTabset)
+        $(this).addClass('dashboard-row');
+
+      // find all of the level 3 subheads
+      var columns = $(this).find('div.section.level3');
+
+      // determine figureSizes sizes
+      var figureSizes = chartFigureSizes(columns);
+
+      // fixup the columns
+      columns.each(function(index) {
+
+        // layout the chart (force flex if we are in a tabset)
+        var result = layoutChart($(this), isTabset);
+
+        // update flexHeight state
+        if (!result.flex)
+          haveFlexHeight = false;
+
+        // update state
+        if (result.notes)
+          haveNotes = true;
+
+        // set the column flex based on the figure width
+        // (value boxes will just get the default figure width)
+        var chartWidth = figureSizes[index].width;
+        setFlex($(this), chartWidth + ' ' + chartWidth + ' 0px');
+
+      });
+
+      // remove empty chart note divs
+      if (isTabset)
+        $(this).find('.chart-notes').filter(function() {
+            return $(this).html() === "&nbsp;";
+        }).remove();
+      if (!haveNotes)
+        $(this).find('.chart-notes').remove();
+
+       // make it a flexbox row
+      if (haveFlexHeight)
+        $(this).addClass('dashboard-row-flex');
+
+      // now we can set the height on all the wrappers (based on maximum
+      // figure height + room for title and notes, or data-height on the
+      // container if specified). However, don't do this if there is
+      // no flex on any of the constituent columns
+      var flexHeight = null;
+      var dataHeight = parseInt($(this).attr('data-height'));
+      if (dataHeight)
+        flexHeight = adjustedHeight(dataHeight, columns.first());
+      else if (haveFlexHeight)
+        flexHeight = maxChartHeight(figureSizes, columns);
+      if (flexHeight) {
+        if (fillPage)
+          setFlex($(this), flexHeight + ' ' + flexHeight + ' 0px');
+        else {
+          $(this).css('height', flexHeight + 'px');
+          setFlex($(this), '0 0 ' + flexHeight + 'px');
+        }
+      }
+
+    });
+  }
+
+  function layoutPageByColumns(page, fillPage) {
+
+    // column orientation
+    page.addClass('dashboard-column-orientation');
+
+    // find all the level2 sections (those are the columns)
+    var columns = page.find('div.section.level2');
+
+    // if there are no level2 sections then treat the
+    // entire page as if it's a level 2 section
+    if (columns.length === 0) {
+      page.wrapInner('<div class="section level2"></div>');
+      columns = page.find('div.section.level2');
+    }
+
+    // layout each column
+    columns.each(function (index) {
+
+      // remove the h2
+      $(this).children('h2').remove();
+
+      // make it a flexbox column
+      $(this).addClass('dashboard-column');
+
+      // check for a tabset
+      var isTabset = $(this).hasClass('tabset');
+      if (isTabset)
+        layoutTabset($(this));
+
+      // find all the h3 elements
+      var rows = $(this).find('div.section.level3');
+
+      // get the figure sizes for the rows
+      var figureSizes = chartFigureSizes(rows);
+
+      // column flex is the max row width (or data-width if specified)
+      var flexWidth;
+      var dataWidth = parseInt($(this).attr('data-width'));
+      if (dataWidth)
+        flexWidth = dataWidth;
+      else
+        flexWidth = maxChartWidth(figureSizes);
+      setFlex($(this), flexWidth + ' ' + flexWidth + ' 0px');
+
+      // layout each chart
+      rows.each(function(index) {
+
+        // perform the layout
+        var result = layoutChart($(this), false);
+
+        // ice the notes if there are none
+        if (!result.notes)
+          $(this).find('.chart-notes').remove();
+
+        // set flex height based on figHeight, then adjust
+        if (result.flex) {
+          var chartHeight = figureSizes[index].height;
+          chartHeight = adjustedHeight(chartHeight, $(this));
+          if (fillPage)
+            setFlex($(this), chartHeight + ' ' + chartHeight + ' 0px');
+          else {
+            $(this).css('height', chartHeight + 'px');
+            setFlex($(this), chartHeight + ' ' + chartHeight + ' ' + chartHeight + 'px');
+          }
+        }
+      });
+    });
+  }
+
+  function chartFigureSizes(charts) {
+
+    // sizes
+    var figureSizes = new Array(charts.length);
+
+    // check each chart
+    charts.each(function(index) {
+
+      // start with default
+      figureSizes[index] = {
+        width: _options.defaultFigWidth,
+        height: _options.defaultFigHeight
+      };
+
+      // look for data-height or data-width then knit options
+      var dataWidth = parseInt($(this).attr('data-width'));
+      var dataHeight = parseInt($(this).attr('data-height'));
+      var knitrOptions = $(this).find('.knitr-options:first');
+      var knitrWidth, knitrHeight;
+      if (knitrOptions) {
+        knitrWidth = parseInt(knitrOptions.attr('data-fig-width'));
+        knitrHeight =  parseInt(knitrOptions.attr('data-fig-height'));
+      }
+
+      // width
+      if (dataWidth)
+        figureSizes[index].width = dataWidth;
+      else if (knitrWidth)
+        figureSizes[index].width = knitrWidth;
+
+      // height
+      if (dataHeight)
+        figureSizes[index].height = dataHeight;
+      else if (knitrHeight)
+        figureSizes[index].height = knitrHeight;
+    });
+
+    // return sizes
+    return figureSizes;
+  }
+
+  function maxChartHeight(figureSizes, charts) {
+
+    // first compute the maximum height
+    var maxHeight = _options.defaultFigHeight;
+    for (var i = 0; i<figureSizes.length; i++)
+      if (figureSizes[i].height > maxHeight)
+        maxHeight = figureSizes[i].height;
+
+    // now add offests for chart title and chart notes
+    if (charts.length)
+      maxHeight = adjustedHeight(maxHeight, charts.first());
+
+    return maxHeight;
+  }
+
+  function adjustedHeight(height, chart) {
+    if (chart.length > 0) {
+      var chartTitle = chart.find('.chart-title');
+      if (chartTitle.length)
+        height += chartTitle.first().outerHeight();
+      var chartNotes = chart.find('.chart-notes');
+      if (chartNotes.length)
+        height += chartNotes.first().outerHeight();
+    }
+    return height;
+  }
+
+  function maxChartWidth(figureSizes) {
+    var maxWidth = _options.defaultFigWidth;
+    for (var i = 0; i<figureSizes.length; i++)
+      if (figureSizes[i].width > maxWidth)
+        maxWidth = figureSizes[i].width;
+    return maxWidth;
+  }
+
+  // layout a chart
+  function layoutChart(chart, forceFlex) {
+
+    // state to return
+    var result = {
+      notes: false,
+      flex: false
+    };
+
+    // extract the title
+    var title = extractTitle(chart);
+
+    // find components that apply to this container
+    var components = componentsFind(chart);
+
+    // if it's a custom component then call it and return
+    var customComponents = componentsCustom(components);
+    if (customComponents.length) {
+      componentsLayout(customComponents, title, chart);
+      result.notes = false;
+      result.flex = forceFlex || componentsFlex(customComponents);
+      return result;
+    }
+
+    // put all the content in a chart wrapper div
+    chart.addClass('chart-wrapper');
+    chart.wrapInner('<div class="chart-stage"></div>');
+    var chartContent = chart.children('.chart-stage');
+
+    // flex the content if appropriate
+    result.flex = forceFlex || componentsFlex(components);
+    if (result.flex) {
+      // add flex classes
+      chart.addClass('chart-wrapper-flex');
+      chartContent.addClass('chart-stage-flex');
+
+      // additional shim to break out of flexbox sizing
+      chartContent.wrapInner('<div class="chart-shim"></div>');
+      chartContent = chartContent.children('.chart-shim');
+    }
+
+    // set custom data-padding attribute
+    var pad = chart.attr('data-padding');
+    if (pad) {
+      if (pad === "0")
+        chart.addClass('no-padding');
+      else {
+        pad = pad + 'px';
+        chartContent.css('left', pad)
+                    .css('top', pad)
+                    .css('right', pad)
+                    .css('bottom', pad)
+      }
+    }
+
+    // call compoents
+    componentsLayout(components, title, chartContent);
+
+    // also activate components on shiny output
+    findShinyOutput(chartContent).on('shiny:value',
+      function(event) {
+        var element = $(event.target);
+        setTimeout(function() {
+
+          // see if we opted out of flex based on our output (for shiny
+          // we can't tell what type of output we have until after the
+          // value is bound)
+          var components = componentsFind(element);
+          var flex = forceFlex || componentsFlex(components);
+          if (!flex) {
+            chart.css('height', "");
+            setFlex(chart, "");
+            chart.removeClass('chart-wrapper-flex');
+            chartContent.removeClass('chart-stage-flex');
+            chartContent.children().unwrap();
+          }
+
+          // perform layout
+          componentsLayout(components, title, element.parent());
+        }, 10);
+      });
+
+    // add the title
+    var chartTitle = $('<div class="chart-title"></div>');
+    chartTitle.append(title);
+    chart.prepend(chartTitle);
+
+    // add the notes section
+    var chartNotes = $('<div class="chart-notes"></div>');
+    chartNotes.html('&nbsp;');
+    chart.append(chartNotes);
+
+    // attempt to extract notes if we have a component
+    if (components.length)
+      result.notes = extractChartNotes(chartContent, chartNotes);
+
+    // return result
+    return result;
+  }
+
+  // build a tabset from a section div with the .tabset class
+  function layoutTabset(tabset) {
+
+    // check for fade option
+    var fade = tabset.hasClass("tabset-fade");
+    var navClass = "nav-tabs";
+
+    // determine the heading level of the tabset and tabs
+    var match = tabset.attr('class').match(/level(\d) /);
+    if (match === null)
+      return;
+    var tabsetLevel = Number(match[1]);
+    var tabLevel = tabsetLevel + 1;
+
+    // find all subheadings immediately below
+    var tabs = tabset.find("div.section.level" + tabLevel);
+    if (!tabs.length)
+      return;
+
+    // create tablist and tab-content elements
+    var tabList = $('<ul class="nav ' + navClass + '" role="tablist"></ul>');
+    $(tabs[0]).before(tabList);
+    var tabContent = $('<div class="tab-content"></div>');
+    $(tabs[0]).before(tabContent);
+
+    // build the tabset
+    tabs.each(function(i) {
+
+      // get the tab div
+      var tab = $(tabs[i]);
+
+      // get the id then sanitize it for use with bootstrap tabs
+      var id = tab.attr('id');
+
+      // sanitize the id for use with bootstrap tabs
+      id = id.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_');
+      tab.attr('id', id);
+
+      // get the heading element within it and grab it's text
+      var heading = tab.find('h' + tabLevel + ':first');
+      var headingDom = heading.contents();
+
+      // build and append the tab list item
+      var a = $('<a role="tab" data-toggle="tab"></a>');
+      a.append(headingDom);
+      a.attr('href', '#' + id);
+      a.attr('aria-controls', id);
+      var li = $('<li role="presentation"></li>');
+      li.append(a);
+      if (i === 0)
+        li.attr('class', 'active');
+      tabList.append(li);
+
+      // set it's attributes
+      tab.attr('role', 'tabpanel');
+      tab.addClass('tab-pane');
+      tab.addClass('tabbed-pane');
+      tab.addClass('no-title');
+      if (fade)
+        tab.addClass('fade');
+      if (i === 0) {
+        tab.addClass('active');
+        if (fade)
+          tab.addClass('in');
+      }
+
+      // move it into the tab content div
+      tab.detach().appendTo(tabContent);
+    });
+
+    // add nav-tabs-custom
+    tabset.addClass('nav-tabs-custom');
+
+    // internal layout is dashboard-column with tab-content flexing
+    tabset.addClass('dashboard-column');
+    setFlex(tabContent, 1);
+  }
+
+  // one time global initialization for components
+  function componentsInit(dashboardContainer) {
+    for (var i=0; i<window.FlexDashboardComponents.length; i++) {
+      var component = window.FlexDashboardComponents[i];
+      if (component.init)
+        component.init(dashboardContainer);
+    }
+  }
+
+  // find components that apply within a container
+  function componentsFind(container) {
+
+    // look for components
+    var components = [];
+    for (var i=0; i<window.FlexDashboardComponents.length; i++) {
+      var component = window.FlexDashboardComponents[i];
+      if (component.find(container).length)
+        components.push(component);
+    }
+
+    // if there were none then use a special flowing content component
+    // that just adds a scrollbar in fillPage mode
+    if (components.length == 0) {
+      components.push({
+        find: function(container) {
+          return container;
+        },
+
+        flex: function(fillPage) {
+          return fillPage;
+        },
+
+        layout: function(title, container, element, fillPage) {
+          if (fillPage) {
+            container.addClass('flowing-content-shim');
+            container.addClass('flowing-content-container');
+          }
+        }
+      });
+    }
+
+    return components;
+  }
+
+  // if there is a custom component then pick it out
+  function componentsCustom(components) {
+    var customComponent = [];
+    for (var i=0; i<components.length; i++)
+      if (components[i].type === "custom") {
+        customComponent.push(components[i]);
+        break;
+      }
+    return customComponent;
+  }
+
+  // query all components for flex
+  function componentsFlex(components) {
+
+    // no components at all means no flex
+    if (components.length === 0)
+      return false;
+
+    // otherwise query components (assume true unless we see false)
+    var isMobile = isMobilePhone();
+    for (var i=0; i<components.length; i++)
+      if (components[i].flex && !components[i].flex(_options.fillPage))
+        return false;
+    return true;
+  }
+
+  // layout all components
+  function componentsLayout(components, title, container) {
+    var isMobile = isMobilePhone();
+    for (var i=0; i<components.length; i++) {
+      var element = components[i].find(container);
+      if (components[i].layout) {
+        // call layout (don't call other components if it returns false)
+        var result = components[i].layout(title, container, element, _options.fillPage);
+        if (result === false)
+          return;
+      }
+    }
+  }
+
+  // get a reference to the h3, discover it's inner html, and remove it
+  function extractTitle(container) {
+    var h3 = container.children('h3').first();
+    var title = '';
+    if (!container.hasClass('no-title'))
+      title = h3.contents();
+    h3.detach();
+    return title;
+  }
+
+  // extract chart notes
+  function extractChartNotes(chartContent, chartNotes) {
+    // look for a terminating blockquote or image caption
+    var blockquote = chartContent.children('blockquote:last-child');
+    var caption = chartContent.children('div.image-container')
+                              .children('p.caption');
+    if (blockquote.length) {
+      chartNotes.empty().append(blockquote.children('p:first-child').contents());
+      blockquote.remove();
+      return true;
+    } else if (caption.length) {
+      chartNotes.empty().append(caption.contents());
+      caption.remove();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function findShinyOutput(chartContent) {
+    return chartContent.find('.shiny-text-output, .shiny-html-output');
+  }
+
+  // safely detect rendering on a mobile phone
+  function isMobilePhone() {
+    try
+    {
+      return ! window.matchMedia("only screen and (min-width: 768px)").matches;
+    }
+    catch(e) {
+      return false;
+    }
+  }
+
+  function isFillPage() {
+    return _options.fillPage;
+  }
+
+  // detect portrait mode
+  function isPortrait() {
+    return ($(window).width() < $(window).height());
+  }
+
+  // safely detect rendering on a tablet
+  function isTablet() {
+    try
+    {
+      return window.matchMedia("only screen and (min-width: 769px) and (max-width: 992px)").matches;
+    }
+    catch(e) {
+      return false;
+    }
+  }
+
+  // test whether this is a shiny doc
+  function isShinyDoc() {
+    return (typeof(window.Shiny) !== "undefined" && !!window.Shiny.outputBindings);
+  }
+
+  // set flex using vendor specific prefixes
+  function setFlex(el, flex) {
+    el.css('-webkit-box-flex', flex)
+      .css('-webkit-flex', flex)
+      .css('-ms-flex', flex)
+      .css('flex', flex);
+  }
+
+  // support bookmarking of pages
+  function handleLocationHash() {
+
+    // restore tab/page from bookmark
+    var hash = window.decodeURIComponent(window.location.hash);
+    if (hash.length > 0)
+      $('ul.nav a[href="' + hash + '"]').tab('show');
+    FlexDashboardUtils.manageActiveNavbarMenu();
+
+    // navigate to a tab when the history changes
+    window.addEventListener("popstate", function(e) {
+      var hash = window.decodeURIComponent(window.location.hash);
+      var activeTab = $('ul.nav a[href="' + hash + '"]');
+      if (activeTab.length) {
+        activeTab.tab('show');
+      } else {
+        $('ul.nav a:first').tab('show');
+      }
+      FlexDashboardUtils.manageActiveNavbarMenu();
+    });
+
+    // add a hash to the URL when the user clicks on a tab/page
+    $('.navbar-nav a[data-toggle="tab"]').on('click', function(e) {
+      var baseUrl = FlexDashboardUtils.urlWithoutHash(window.location.href);
+      var hash = FlexDashboardUtils.urlHash($(this).attr('href'));
+      var href = baseUrl + hash;
+      FlexDashboardUtils.setLocation(href);
+    });
+
+    // handle clicks of other links that should activate pages
+    var navPages = $('ul.navbar-nav li a[data-toggle=tab]');
+    navPages.each(function() {
+      var href =  $(this).attr('href');
+      var links = $('a[href="' + href + '"][data-toggle!=tab]');
+      links.each(function() {
+        $(this).on('click', function(e) {
+          window.FlexDashboardUtils.showPage(href);
+        });
+      });
+    });
+  }
+
+  // tweak Prism highlighting
+  function initPrismHighlighting() {
+
+    if (window.Prism) {
+      Prism.languages.insertBefore('r', 'comment', {
+        'heading': [
+          {
+            // title 1
+        	  // =======
+
+        	  // title 2
+        	  // -------
+        	  pattern: /\w+.*(?:\r?\n|\r)(?:====+|----+)/,
+            alias: 'operator'
+          },
+          {
+            // ### title 3
+            pattern: /(^\s*)###[^#].+/m,
+            lookbehind: true,
+            alias: 'operator'
+          }
+        ]
+      });
+
+      // prism highlight
+      Prism.highlightAll();
+    }
+  }
+
+
+  // get theme color
+  var themeColors = {
+    bootstrap: {
+      primary: "rgba(51, 122, 183, 0.4)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    cerulean: {
+      primary: "rgb(47, 164, 231)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    journal: {
+      primary: "rgba(235, 104, 100, 0.70)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    flatly: {
+      primary: "rgba(44, 62, 80, 0.70)",
+      info: "rgba(52, 152, 219, 0.70)",
+      success: "rgba(24, 188, 156, 0.70)",
+      warning: "rgba(243, 156, 18, 0.70)",
+      danger: "rgba(231, 76, 60, 0.70)"
+    },
+    readable: {
+      primary: "rgba(69, 130, 236, 0.4)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    spacelab: {
+      primary: "rgba(68, 110, 155, 0.25)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    united: {
+      primary: "rgba(221, 72, 20, 0.30)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    cosmo: {
+      primary: "rgba(39, 128, 227, 0.7)",
+      info: "rgba(153, 84, 187, 0.7)",
+      success: "rgba(63, 182, 24, 0.7)",
+      warning: "rgba(255, 117, 24, 0.7)",
+      danger: "rgba(255, 0, 57, 0.7)"
+    },
+    lumen: {
+      primary: "rgba(21, 140, 186, 0.70)",
+      info: "rgba(117, 202, 235, 0.90)",
+      success: "rgba(40, 182, 44, 0.70)",
+      warning: "rgba(255, 133, 27, 0.70)",
+      danger: "rgba(255, 65, 54, 0.70)"
+    },
+    paper: {
+      primary: "rgba(33, 150, 243, 0.35)",
+      info: "rgb(225, 190, 231)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(255, 224, 178)",
+      danger: "rgb(249, 189, 187)"
+    },
+    sandstone: {
+      primary: "rgba(50, 93, 136, 0.3)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    simplex: {
+      primary: "rgba(217, 35, 15, 0.25)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    yeti: {
+      primary: "rgba(0, 140, 186, 0.298039)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    }
+  }
+  function themeColor(color) {
+    return themeColors[_options.theme][color];
+  }
+
+  FlexDashboard.prototype = {
+    constructor: FlexDashboard,
+    init: init,
+    isMobilePhone: isMobilePhone,
+    isFillPage: isFillPage,
+    themeColor: themeColor
+  };
+
+  return FlexDashboard;
+
+})();
+
+// utils
+window.FlexDashboardUtils = {
+  resizableImage: function(img) {
+    var src = img.attr('src');
+    var url = 'url("' + src + '")';
+    img.parent().css('background', url)
+                .css('background-size', 'contain')
+                .css('background-repeat', 'no-repeat')
+                .css('background-position', 'center')
+                .addClass('image-container');
+  },
+  setLocation: function(href) {
+    if (history && history.pushState) {
+      history.pushState(null, null, href);
+    } else {
+      window.location.replace(href);
+    }
+    setTimeout(function() {
+        window.scrollTo(0, 0);
+    }, 10);
+    this.manageActiveNavbarMenu();
+  },
+  showPage: function(href) {
+    $('ul.navbar-nav li a[href="' + href + '"]').tab('show');
+    var baseUrl = this.urlWithoutHash(window.location.href);
+    var loc = baseUrl + href;
+    this.setLocation(loc);
+  },
+  showLinkedValue: function(href) {
+    // check for a page link
+    if ($('ul.navbar-nav li a[data-toggle=tab][href="' + href + '"]').length > 0)
+      this.showPage(href);
+    else
+      window.open(href);
+  },
+  urlWithoutHash: function(url) {
+    var hashLoc = url.indexOf('#');
+    if (hashLoc != -1)
+      return url.substring(0, hashLoc);
+    else
+      return url;
+  },
+  urlHash: function(url) {
+    var hashLoc = url.indexOf('#');
+    if (hashLoc != -1)
+      return url.substring(hashLoc);
+    else
+      return "";
+  },
+  manageActiveNavbarMenu: function () {
+    // remove active from anyone currently active
+    $('.navbar ul.nav').find('li').removeClass('active');
+    // find the active tab
+    var activeTab = $('.dashboard-page-wrapper.tab-pane.active');
+    if (activeTab.length > 0) {
+      var tabId = activeTab.attr('id');
+      if (tabId)
+        $(".navbar ul.nav a[href='#" + tabId + "']").parents('li').addClass('active');
+    }
+  }
+};
+
+window.FlexDashboard = new FlexDashboard();
+
+// empty content
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    if (container.find('p').length == 0)
+      return container;
+    else
+      return $();
+  }
+})
+
+// plot image
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('p')
+                    .children('img:only-child');
+  },
+
+  layout: function(title, container, element, fillPage) {
+    FlexDashboardUtils.resizableImage(element);
+  }
+});
+
+// plot image (figure style)
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('div.figure').children('img');
+  },
+
+  layout: function(title, container, element, fillPage) {
+    FlexDashboardUtils.resizableImage(element);
+  }
+});
+
+// htmlwidget
+window.FlexDashboardComponents.push({
+
+  init: function(dashboardContainer) {
+    // trigger "shown" after initial layout to force static htmlwidgets
+    // in runtime: shiny to be resized after the dom has been transformed
+    dashboardContainer.on('flexdashboard:layoutcomplete', function(event) {
+      setTimeout(function() {
+        dashboardContainer.trigger('shown');
+      }, 200);
+    });
+  },
+
+  find: function(container) {
+    return container.children('div[id^="htmlwidget-"],div.html-widget');
+  }
+});
+
+// gauge
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('div.html-widget.gauge');
+  },
+
+  flex: function(fillPage) {
+    return false;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+
+  }
+
+});
+
+// shiny output
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    return container.children('div[class^="shiny-"]');
+  }
+});
+
+// datatables
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    return container.find('.datatables');
+  },
+  flex: function(fillPage) {
+    return fillPage;
+  }
+});
+
+// bootstrap table
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    var bsTable = container.find('table.table');
+    if (bsTable.length !== 0)
+      return bsTable;
+    else
+      return container.find('tr.header').parent('thead').parent('table');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+    // alias variables
+    var bsTable = element;
+
+    // fixup xtable generated tables with a proper thead
+    var headerRow = bsTable.find('tbody > tr:first-child > th').parent();
+    if (headerRow.length > 0) {
+      var thead = $('<thead></thead>');
+      bsTable.prepend(thead);
+      headerRow.detach().appendTo(thead);
+    }
+
+    // improve appearance
+    container.addClass('bootstrap-table');
+
+    // for fill page provide scrolling w/ sticky headers
+    if (fillPage) {
+      // force scrollbar on overflow
+      container.addClass('flowing-content-shim');
+
+      // stable table headers when scrolling
+      bsTable.stickyTableHeaders({
+        scrollableArea: container
+      });
+    }
+  }
+});
+
+// embedded shiny app
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.find('iframe.shiny-frame');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+    if (fillPage) {
+      element.attr('height', '100%');
+    } else {
+      // provide default height if necessary
+      var height = element.get(0).style.height;
+      if (!height)
+        height = element.attr('height');
+      if (!height)
+        element.attr('height', 500);
+    }
+  }
+});
+
+// shiny fillRow or fillCol
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.find('.flexfill-container');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+    if (fillPage)
+      element.css('height', '100%');
+    else {
+      // provide default height if necessary
+      var height = element.get(0).style.height;
+      if (height === "100%" || height === "auto" || height === "initial" ||
+          height === "inherit" || !height) {
+        element.css('height', 500);
+      }
+    }
+  }
+});
+
+// valueBox
+window.FlexDashboardComponents.push({
+
+  type: "custom",
+
+  find: function(container) {
+    if (container.find('span.value-output, .shiny-valuebox-output').length)
+      return container;
+    else
+      return $();
+  },
+
+  flex: function(fillPage) {
+    return false;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+    // alias variables
+    var chartTitle = title;
+    var valueBox = element;
+
+    // add value-box class to container
+    container.addClass('value-box');
+
+    // value paragraph
+    var value = $('<p class="value"></p>');
+
+    // if we have shiny-text-output then just move it in
+    var valueOutputSpan = [];
+    var shinyOutput = valueBox.find('.shiny-valuebox-output').detach();
+    if (shinyOutput.length) {
+      valueBox.children().remove();
+      shinyOutput.html("&mdash;");
+      value.append(shinyOutput);
+    } else {
+      // extract the value (remove leading vector index)
+      var chartValue = valueBox.text().trim();
+      chartValue = chartValue.replace("[1] ", "");
+      valueOutputSpan = valueBox.find('span.value-output').detach();
+      valueBox.children().remove();
+      value.text(chartValue);
+    }
+
+    // caption
+    var caption = $('<p class="caption"></p>');
+    caption.append(chartTitle);
+
+    // build inner div for value box and add it
+    var inner = $('<div class="inner"></div>');
+    inner.append(value);
+    inner.append(caption);
+    valueBox.append(inner);
+
+    // add icon if specified
+    var icon = $('<div class="icon"><i></i></div>');
+    valueBox.append(icon);
+    function setIcon(chartIcon) {
+      var iconLib = "";
+      var iconSplit = chartIcon.split(" ");
+      if (iconSplit.length > 1) {
+        iconLib = iconSplit[0];
+        chartIcon = iconSplit.slice(1).join(" ");
+      } else {
+        var components = chartIcon.split("-");
+        if (components.length > 1)
+          iconLib = components[0];
+      }
+      icon.children('i').attr('class', iconLib + ' ' + chartIcon);
+    }
+    var chartIcon = valueBox.attr('data-icon');
+    if (chartIcon)
+      setIcon(chartIcon);
+
+    // set color based on data-background if necessary
+    var dataBackground = valueBox.attr('data-background');
+    if (dataBackground)
+      valueBox.css('background-color', bgColor);
+    else {
+      // default to bg-primary if no other background is specified
+      if (!valueBox.hasClass('bg-primary') &&
+          !valueBox.hasClass('bg-info') &&
+          !valueBox.hasClass('bg-warning') &&
+          !valueBox.hasClass('bg-success') &&
+          !valueBox.hasClass('bg-danger')) {
+        valueBox.addClass('bg-primary');
+      }
+    }
+
+    // handle data attributes in valueOutputSpan
+    function handleValueOutput(valueOutput) {
+
+      // caption
+      var dataCaption = valueOutput.attr('data-caption');
+      if (dataCaption)
+        caption.html(dataCaption);
+
+      // icon
+      var dataIcon = valueOutput.attr('data-icon');
+      if (dataIcon)
+        setIcon(dataIcon);
+
+      // color
+      var dataColor = valueOutput.attr('data-color');
+      if (dataColor) {
+        if (dataColor.indexOf('bg-') === 0) {
+          valueBox.css('background-color', '');
+          if (!valueBox.hasClass(dataColor)) {
+             valueBox.removeClass('bg-primary bg-info bg-warning bg-danger bg-success');
+             valueBox.addClass(dataColor);
+          }
+        } else {
+          valueBox.removeClass('bg-primary bg-info bg-warning bg-danger bg-success');
+          valueBox.css('background-color', dataColor);
+        }
+      }
+
+      // url
+      var dataHref = valueOutput.attr('data-href');
+      if (dataHref) {
+        valueBox.addClass('linked-value');
+        valueBox.off('click.value-box');
+        valueBox.on('click.value-box', function(e) {
+          window.FlexDashboardUtils.showLinkedValue(dataHref);
+        });
+      }
+    }
+
+    // check for a valueOutputSpan
+    if (valueOutputSpan.length > 0) {
+      handleValueOutput(valueOutputSpan);
+    }
+
+    // if we have a shinyOutput then bind a listener to handle
+    // new valueOutputSpan values
+    shinyOutput.on('shiny:value',
+      function(event) {
+        var element = $(event.target);
+        setTimeout(function() {
+          var valueOutputSpan = element.find('span.value-output');
+          if (valueOutputSpan.length > 0)
+            handleValueOutput(valueOutputSpan);
+        }, 10);
+      }
+    );
+  }
+});
+</script>
+
+<div id="dashboard-container">
+
+<div id="location-markers-across-midwest-for-dominos-pizza-store-featuring-yelp-ratings" class="section level3">
+<h3>Location Markers across Midwest for Domino’s Pizza Store featuring Yelp Ratings</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-72262a42d9fd653722ae" style="width:576px;height:460.8px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-72262a42d9fd653722ae">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addCircles","args":[[42.2775307,42.27522,42.29563,42.2795793749763,42.2779624772776,42.2743456,42.2407680879754,42.27764,42.2577972412109,42.273701,42.2573324,42.214255,42.272,42.24531,42.2980592167723,42.27252,42.27167,42.279168,42.304847,42.2460518,42.270927,42.27393,42.25519,42.2983221380329,42.242235532977,42.2659173936917,42.2403155,42.2464692,42.27313,42.26111,42.24064,42.27469,42.3029138275637,42.2452190262432,42.2907283715655,42.28432,42.2519705,42.2839546,42.240212,42.24455,42.276077842145,42.2782669067383,42.2748299,42.26999,42.258049,42.2506884,42.2501525878906,42.2716217,42.2704499,42.256783,42.345476174914,42.3320754543569,42.3539638448561,42.33113,42.41897,42.334431,42.3815,42.3200025869088,42.32372,42.331716,42.3361989785321,42.35183,42.406071,42.34079,42.33702,42.31955,42.31264,42.3513229,42.3351522901373,42.3512597416829,42.3337210606674,42.33864,42.3574742,42.3330441,42.3528060913086,42.3424987792969,42.33439,42.3434469636121,42.3312951,42.3693032,42.3311517387629,42.365547,42.3736333791563,42.3324686,42.3750687,42.3976603228083,42.41803,42.322354,42.3665009,42.37757,42.3335328432304,42.33803855796,42.352653,42.397411,42.3719794,42.344009,42.2903220548957,42.3122833818676,42.31944,41.9048454,41.92187,41.890357,41.924806,41.894129,41.9371221,41.911037,41.90055,41.903526,41.910211,41.911271,41.91025,41.9103256994423,41.89075,41.913973,41.853945,41.88318,41.8309,41.8845699,41.918194,41.9042336,41.92589,41.885165,41.94521,41.896268,41.92084,41.91064,41.90954,41.91426,41.8906916389975,41.921917,41.9757474517431,41.88509,41.961405,41.89635,41.93083,41.908901,41.871566,41.963286,41.89113,41.89569,41.889903,41.945351,41.9248027560034,41.95381,41.9762649,41.8894378,41.89603,41.9174418,41.9096602],[-83.7428818,-83.73545,-83.780918,-83.744244702611,-83.7418160105149,-83.7347695,-83.768447405909,-83.74266,-83.7284164428711,-83.777463,-83.6992959,-83.7966409,-83.74213,-83.678917,-83.7229559873176,-83.77641,-83.74087,-83.748462,-83.694006,-83.6803284,-83.77375,-83.77963,-83.69031,-83.721446210622,-83.7699348609999,-83.7353534637543,-83.7700642,-83.758462,-83.73876,-83.73062,-83.744902,-83.73434,-83.7094062490622,-83.740747,-83.7370508638063,-83.803674,-83.7498728,-83.7472842,-83.769453,-83.69992,-83.7782755330943,-83.7482986450195,-83.7342834,-83.77282,-83.7380524,-83.6646645,-83.6627578735352,-83.7407532,-83.7403999,-83.692352,-83.040064828648,-83.0664473117439,-83.0800281465053,-83.07584,-83.06405,-83.046934,-83.1103399,-83.0967996652594,-83.08766,-83.065696,-83.0495368518519,-83.066046,-83.0642868,-83.05384,-83.05139,-83.0981,-83.1235,-83.0603082,-83.0420966697811,-83.0652487171967,-83.04200186272,-83.03259,-83.0649492,-83.0490294,-83.0696105957031,-83.0111999511719,-83.04848,-83.0524337327271,-83.0441362,-83.0728591,-83.1109030544758,-83.087024,-83.0462662317685,-83.0476759,-83.1393127,-83.0585320036707,-83.14049,-83.0901338,-83.0696411,-83.03192,-83.0456439472152,-83.0539966666666,-83.074443,-83.065502,-83.0742231,-83.1637,-83.1459120674591,-83.1523576006293,-83.02251,-87.6775072,-87.664486,-87.633704,-87.718771,-87.667541,-87.6683814,-87.677126,-87.68662,-87.673446,-87.680272,-87.7024817,-87.67566,-87.6760850295053,-87.65988,-87.709744,-87.6683543622494,-87.65308,-87.65363,-87.65406,-87.677813,-87.6343073,-87.70168,-87.623753,-87.65467,-87.675636,-87.63721,-87.63437,-87.67768,-87.68393,-87.6172096480698,-87.652489,-87.6921836227971,-87.63416,-87.669747,-87.6656299,-87.65579,-87.6774103,-87.627275,-87.673801,-87.67142,-87.6719,-87.625788,-87.6459276,-87.6479495139774,-87.6813899,-87.67228,-87.6294351,-87.62307,-87.7034462,-87.633534],[1565,415,425,4055,1450,2210,710,760,165,500,1775,225,340,165,95,45,265,4510,30,240,15,40,725,185,180,210,5,475,1050,180,455,215,145,90,150,655,180,460,45,70,205,1585,675,100,45,180,50,545,15,85,4410,425,1190,255,1335,1030,10,335,310,3320,250,2535,570,390,695,150,85,410,305,2275,1175,10,160,845,330,245,1665,10,225,10,330,85,160,250,85,375,125,230,545,160,125,10,25,260,215,40,1400,15,5,1355,31775,31030,560,90,5930,2130,200,2045,780,210,1820,17840,5465,110,1040,375,1950,2275,1975,3205,2015,13980,4750,4570,12810,375,15,1075,2055,5715,3290,300,395,1000,2215,1805,13195,7750,1340,205,3185,1675,1095,600,1225,870,11765,1790,245],null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":2,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2},["NeoPapalis  -  500 E William St , Ann Arbor  , rating : 4.5  review :  313","Joe's Pizza  -  1107 S University Ave , Ann Arbor  , rating : 4.5  review :  83","Anthony's Gourmet Pizza  -  1508 N Maple Rd , Ann Arbor  , rating : 4.5  review :  85","Mani Osteria & Bar  -  341 E Liberty St , Ann Arbor  , rating : 4  review :  811","New York Pizza Depot  -  605 E William St , Ann Arbor  , rating : 3.5  review :  290","Pizza House  -  618 Church St , Ann Arbor  , rating : 3.5  review :  442","Buddy's Pizza - Ann Arbor  -  3153 Ann Arbor-Saline Rd , Ann Arbor  , rating : 4  review :  142","The Original Cottage Inn  -  512 E William St , Ann Arbor  , rating : 3.5  review :  152","Anthony's Gourmet Pizza  -  1924 Packard St , Ann Arbor  , rating : 4  review :  33","Hello Faz Pizza  -  2259 W Liberty St , Ann Arbor  , rating : 4  review :  100","Bigalora Wood Fired Cucina  -  3050 Washtenaw Ave , Ann Arbor  , rating : 3.5  review :  355","Tippins Market  -  4845 Ann Arbor Saline Rd , Ann Arbor  , rating : 4.5  review :  45","Cottage Inn Pizza  -  546 Packard St , Ann Arbor  , rating : 3  review :  68","Marcos Pizza  -  4068 Packard St , Ann Arbor  , rating : 4  review :  33","Marco's Pizza  -  1752 Plymouth Rd , Ann Arbor  , rating : 3.5  review :  19","Toarmina's Pizza  -  2145 W Stadium Blvd Dr , Ann Arbor  , rating : 3  review :  9","Pizza Bob's  -  800 S State St , Ann Arbor  , rating : 3.5  review :  53","Jolly Pumpkin Cafe & Brewery  -  311 S Main St , Ann Arbor  , rating : 4  review :  902","Hungry Howie's Pizza  -  3397 Plymouth Rd , Ann Arbor  , rating : 4  review :  6","Mancino's  -  2883 Carpenter Rd , Ann Arbor  , rating : 3.5  review :  48","Hungry Howie's Pizza  -  2026 W Stadium , Ann Arbor  , rating : 3  review :  3","The Original Buscemis  -  695 S Maple Rd , Ann Arbor  , rating : 3  review :  8","Blaze Pizza  -  3500 Washtenaw Ave , Ann Arbor  , rating : 3  review :  145","Jet's Pizza  -  1749 Plymouth Rd , Ann Arbor Charter Township  , rating : 3  review :  37","Jet's Pizza  -  3127 Oak Valley Dr , Ann Arbor  , rating : 3  review :  36","Toarmina’s Pizza & Burrito Joint  -  1200 Packard St , Ann Arbor  , rating : 3  review :  42","Marco's Pizza  -  3238 Ann Arbor Saline Rd , Ann Arbor  , rating : 4  review :  1","Blaze Pizza  -  980A W Eisenhower Pkwy , Ann Arbor  , rating : 3  review :  95","Dominick's  -  812 Monroe St , Ann Arbor  , rating : 3.5  review :  210","Stadium Market  -  1423 E Stadium Blvd , Ann Arbor  , rating : 4  review :  36","California Pizza Kitchen at Briarwood  -  870 Briarwood Cir , Ann Arbor  , rating : 3.5  review :  91","Backroom Pizza  -  605 Church St , Ann Arbor  , rating : 3.5  review :  43","Domino's Pizza  -  2601 Plymouth Rd , Ann Arbor  , rating : 3  review :  29","Cottage Inn Pizza  -  2900 S State St , Ann Arbor  , rating : 3  review :  18","Cottage Inn Pizza  -  1141 Broadway St , Ann Arbor  , rating : 2.5  review :  30","Session Room  -  3685 Jackson Rd , Ann Arbor  , rating : 3.5  review :  131","Domino's Pizza  -  2282 S Main St , Ann Arbor  , rating : 3  review :  36","The Bar At 327 Braun Court  -  327 Braun Ct , Ann Arbor  , rating : 4  review :  92","Lefty's Ann Arbor  -  3157 Ann Arbor-Saline Rd , Ann Arbor  , rating : 4  review :  9","Little Caesars Pizza  -  3000 Packard , Ann Arbor  , rating : 3.5  review :  14","Cottage Inn Pizza  -  2301 W Stadium Blvd , Ann Arbor  , rating : 2.5  review :  41","Palio  -  347 S Main St , Ann Arbor  , rating : 3  review :  317","Brown Jug  -  1204 S University Ave , Ann Arbor  , rating : 3  review :  135","Little Caesars Pizza  -  1944 W Stadium Blvd , Ann Arbor  , rating : 3  review :  20","Stadium Deli & Wine Shop  -  1956 S Industrial Hwy , Ann Arbor  , rating : 4.5  review :  9","Ann Arbor Fish & Chicken  -  4872 Washtenaw Ave , Ann Arbor  , rating : 4  review :  36","Domino's Pizza  -  4910 Washtenaw Ave , Ann Arbor  , rating : 3.5  review :  10","Mr Spots  -  808 S State St , Ann Arbor  , rating : 4  review :  109","Domino's Pizza  -  716 Packard St , Ann Arbor  , rating : 2  review :  3","Hungry Howie's Pizza  -  3365 Washtenaw Ave , Ann Arbor  , rating : 2.5  review :  17","Supino Pizzeria  -  2457 Russell St , Detroit  , rating : 4.5  review :  882","Michigan & Trumbull  -  1441 W Elizabeth St , Detroit  , rating : 4.5  review :  85","Pie Sci  -  5163 Trumbull Ave , Detroit  , rating : 4.5  review :  238","Grandma Bob's  -  2135 Michigan Ave , Detroit  , rating : 4.5  review :  51","Buddy's Pizza  -  17125 Conant St , Detroit  , rating : 4.5  review :  267","Mootz Pizzeria + Bar  -  1230 Library St , Detroit  , rating : 4  review :  206","Toarmina's Pizza  -  2470 Collingwood St , Detroit  , rating : 4.5  review :  2","PizzaPlex  -  4458 Vernor Hwy , Detroit  , rating : 4.5  review :  67","Sicily's Pizzeria & Subs  -  3554 W Vernor Hwy , Detroit  , rating : 4  review :  62","Ottava Via  -  1400 Michigan Ave , Detroit  , rating : 4  review :  664","Buddy's Pizza - Downtown  -  1565 Broadway St , Downtown Detroit  , rating : 4.5  review :  50","Motor City Brewing Works  -  470 W Canfield , Detroit  , rating : 4  review :  507","Amar Pizza  -  12195 Joseph Campau , Hamtramck  , rating : 4.5  review :  114","Mike's Pizza Bar  -  2515 Woodward Ave , Detroit  , rating : 4  review :  78","Brass Rail Pizza Bar  -  18 W Adams Ave , Detroit  , rating : 4  review :  139","Chicago's Pizza  -  4650 W Vernor Hwy , Detroit  , rating : 4  review :  30","Paul's Pizzeria  -  7635 W Vernor Hwy , Detroit  , rating : 4  review :  17","Sgt. Pepperoni's  -  4120 Woodward Ave , Detroit  , rating : 3.5  review :  82","Eat-N-Out Pizza & Gelato  -  531 Monroe Ave , Detroit  , rating : 4  review :  61","Jolly Pumpkin Pizzeria and Brewery- Detroit  -  441 W Canfield , Detroit  , rating : 4  review :  455","Niki's Pizza  -  735 Beaubien St , Detroit  , rating : 3.5  review :  235","Hungry Howie's Pizza  -  1533 E Lafayette St , Detroit  , rating : 3  review :  2","Shield's Restaurant Bar Pizzeria  -  5057 Woodward Ave , Detroit  , rating : 3.5  review :  32","La Lanterna  -  1224 Griswold St , Detroit  , rating : 4  review :  169","Jet's Pizza  -  4718 Anthony Wayne Dr , Detroit  , rating : 2.5  review :  66","Jet's Pizza  -  3420 E Jefferson Ave , Detroit  , rating : 2.5  review :  49","San Morello  -  1400 Woodward Ave , Detroit  , rating : 4  review :  333","Saucy Brew Works - Detroit  -  2671 John R St , Detroit  , rating : 3  review :  2","POP + Offworld  -  128 Cadillac Square , Detroit  , rating : 4  review :  45","Supino Pizzeria  -  6519 Woodward Ave , Detroit  , rating : 4.5  review :  2","La Noria Bistro  -  5517 Michigan Ave , Detroit  , rating : 4.5  review :  66","Papa's Pizza & BBQ  -  2697 Grand Blvd , Detroit  , rating : 3  review :  17","Dan & Vi's Pizza  -  5951 Chene St , Detroit  , rating : 4.5  review :  32","Slices  -  1043 Woodward Ave , Detroit  , rating : 3  review :  50","Jerry's Pizza & Barbecue  -  11749 Livernois Ave , Detroit  , rating : 3  review :  17","Amicci's Pizza  -  9841 Joseph Campau St , Hamtramck  , rating : 3.5  review :  75","Gregg's Pizza & Bar-B-Que  -  17160 Livernois Ave , Detroit  , rating : 3  review :  25","Amicci's Pizza  -  3849 W Vernor Hwy , Detroit  , rating : 2.5  review :  46","Z's Villa  -  42 Piquette St , Detroit  , rating : 4  review :  109","Royal Barbecue Pizza  -  5844 Mt Elliott St , Detroit  , rating : 4  review :  32","Cottage Inn Pizza  -  107 Monroe St , Detroit  , rating : 3  review :  25","Town Pump Tavern  -   , Detroit  , rating : 5  review :  2","Value Pizza  -  1127 W Warren Ave , Detroit  , rating : 4  review :  5","Halal Desi Pizza & Gyro's  -  2200 Caniff St , Hamtramck  , rating : 4  review :  52","Happy's Pizza  -  7450 Woodward Ave , Detroit  , rating : 2  review :  43","Golden Halal Pizza  -  10509 W Warren Ave , Dearborn  , rating : 3.5  review :  8","Giovanni's Ristorante  -  330 S Oakwood , Detroit  , rating : 4.5  review :  280","Grub Inn Pizza & Grill  -  10406 Eagle St , Dearborn  , rating : 5  review :  3","MoeJoe Pizza  -  1000 wyandotte Street E , Windsor  , rating : 5  review :  1","Craft Pizza  -  1252 N Damen Ave , Chicago  , rating : 4.5  review :  271","Pequod's Pizzeria  -  2207 N Clybourn Ave , Chicago  , rating : 4  review :  6355","Lou Malnati's Pizzeria  -  439 N Wells St , Chicago  , rating : 4  review :  6206","Vito & Angelo's Pizzeria & Restaurant  -  3644 W Fullerton Ave , Chicago  , rating : 4  review :  112","Bartoli’s Pizzeria  -  658 N Ashland Ave , Chicago  , rating : 4.5  review :  18","The Art of Pizza  -  3033 N Ashland Ave , Chicago  , rating : 4  review :  1186","Dimo's Pizza  -  1615 N Damen Ave , Chicago  , rating : 4  review :  426","Pizza Friendly Pizza  -  1039 N Western Ave , Chicago  , rating : 4.5  review :  40","Parlor Pizza Bar - Wicker Park  -  1824 West Division St , Chicago  , rating : 3.5  review :  409","Knead Great Pizza  -  2101 W North Ave , Chicago  , rating : 4.5  review :  156","Pizza City USA  -   , Chicago  , rating : 5  review :  42","Paradise Park  -  1913 W North Ave , Chicago  , rating : 4  review :  364","Piece Brewery and Pizzeria  -  1927 W North Ave , Chicago  , rating : 4  review :  3568","Coalfire Pizza  -  1321 W Grand Ave , Chicago  , rating : 4.5  review :  1093","Milly’s Pizza In The Pan  -  1801 N Spaulding Ave , Chicago  , rating : 5  review :  22","Bob's Pizza  -  1659 W 21st St , Chicago  , rating : 4.5  review :  208","Nancy's Pizza  -  1000 W Washington , Chicago  , rating : 4  review :  75","Phil's Pizza  -  1102 W 35th St , Chicago  , rating : 4  review :  390","Forno Rosso Pizzeria Napoletana  -  1048 W Randolph St , Chicago  , rating : 4.5  review :  455","My Pi Pizza  -  2010 N Damen Ave , Chicago  , rating : 4  review :  395","Happy Camper - Old Town  -  1209 N Wells St , Chicago  , rating : 4  review :  641","Paulie Gee's Logan Square  -  2451 N Milwaukee Ave , Chicago  , rating : 4  review :  403","Giordano's  -  130 E Randolph , Chicago  , rating : 4  review :  2796","Dimo's Pizza  -  3463 N Clark St , Chicago  , rating : 4  review :  950","Roots Handmade Pizza - West Town  -  1924 W Chicago Ave , Chicago  , rating : 3.5  review :  914","Chicago Pizza And Oven Grinder Company  -  2121 N Clark St , Chicago  , rating : 4  review :  2562","Gallucci Pizzeria Napoletana  -  1551 N Wells St , Chicago  , rating : 4.5  review :  75","Chef Bill Kim's Pizza and Parm Shop  -  1542 North Damen Ave , Chicago  , rating : 4.5  review :  3","The StopAlong  -  1812 N Milwaukee Ave , Chicago  , rating : 4.5  review :  215","Robert's Pizza & Dough Company  -  465 N McClurg , Chicago  , rating : 4.5  review :  411","Homeslice  -  938 W Webster Ave , Chicago  , rating : 4  review :  1143","Jimmy's Pizza Café  -  5159 N Lincoln Ave , Chicago  , rating : 4.5  review :  658","Rosati's Pizza  -  176 N Wells St , Chicago  , rating : 3.5  review :  60","Crushed Pizzeria  -  1607 W Montrose Ave , Chicago  , rating : 4.5  review :  79","Paula & Monica's Pizzeria  -  1518 W Chicago Ave , Chicago  , rating : 4  review :  200","Pat's Pizza  -  2679 N Lincoln Ave , Chicago  , rating : 4  review :  443","Lou Malnati's Pizzeria  -  1520 N Damen Ave , Chicago  , rating : 4  review :  361","Lou Malnati's Pizzeria  -  805 S State St , Chicago  , rating : 4  review :  2639","Spacca Napoli  -  1769 W Sunnyside Ave , Chicago  , rating : 4  review :  1550","Tortorice's Pizza & Catering  -  1746 W Grand Ave , Chicago  , rating : 4  review :  268","Naty's Pizza 2  -  1757 W Chicago Ave , Chicago  , rating : 4  review :  41","Bongiorno's Italian Deli & Pizzeria  -  405 N Wabash Ave , Chicago  , rating : 4  review :  637","Si-Pie Pizzeria  -  3477 N Broadway St , Chicago  , rating : 4  review :  335","La Crosta Woodfire Pizzeria Italiana  -  2360 N Lincoln Ave , Chicago  , rating : 4.5  review :  219","Tortorice's Pizza  -  2101 W Irving Park Rd , Chicago  , rating : 4  review :  120","Fat Chris's Pizza and Such  -  1706 W Foster Ave , Chicago  , rating : 4  review :  245","Parlor Pizza Bar - River North  -  405 N Dearborn St , Chicago  , rating : 4  review :  174","Gino's East - Magnificent Mile  -  162 E Superior St , Chicago  , rating : 3.5  review :  2353","Dante's Pizzeria  -  3028 W Armitage Ave , Chicago  , rating : 4  review :  358","Bob's Pizza  -  1512 N LaSalle Dr , Chicago  , rating : 4.5  review :  49"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null,null]}],"limits":{"lat":[41.8309,42.41897],"lng":[-87.718771,-83.0111999511719]}},"evals":[],"jsHooks":[]}</script>
+<hr />
+<p>
+<b>Inference Points :</b>
+</p>
+<p>
+<ul>
+<li>Ann Arbor have average rating 3.5 across all stores</li>
+<li>Minneapolis Store has negative sentiments with rating 1.5 with most reviews (94), followed by Indianapolis Store with rating 2 and 60 reviews</li>
+</ul>
+</p>
+<br />
+ 
+<p>
+<b>References :</b>
+</p>
+<p>
+<ul>
+<li><a href="https://www.yelp.com/developers/documentation/v3">Yelp API</a></li>
+<li><a href="http://rstudio.github.io/leaflet/shapes.html">leaflet visual</a></li>
+</ul>
+</p>
+</div>
+<div id="overall-distribution-of-customer-reviews-across-different-cities-in-midwest-along-with-average-customer-rating" class="section level3">
+<h3>Overall distribution of customer reviews across different cities in Midwest along with average customer rating</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-1aa48750955ee2b23cfc" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1aa48750955ee2b23cfc">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":null},"yAxis":{"title":{"text":"rating"},"type":"linear"},"credits":{"enabled":false},"exporting":{"enabled":false},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":true},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"name":"Ann Arbor Fish & Chicken","data":[{"id":"dtX1MT3m2gnLHPJVGFayZA","name":"Ann Arbor Fish & Chicken","rating":4,"review_count":36,"latitude":42.2506884,"longitude":-83.6646645,"address1":"4872 Washtenaw Ave","city":"Ann Arbor","state":"MI","distance":6976.47037397307,"x":36,"y":4,"z":36}],"type":"bubble"},{"name":"Anthony's Gourmet Pizza","data":[{"id":"-h_zeuiMCWWkSIAyhw25EA","name":"Anthony's Gourmet Pizza","rating":4.5,"review_count":85,"latitude":42.29563,"longitude":-83.780918,"address1":"1508 N Maple Rd","city":"Ann Arbor","state":"MI","distance":3881.49112323122,"x":85,"y":4.5,"z":85},{"id":"lmLvzwceJK_4fI1MayBb4A","name":"Anthony's Gourmet Pizza","rating":4,"review_count":33,"latitude":42.2577972412109,"longitude":-83.7284164428711,"address1":"1924 Packard St","city":"Ann Arbor","state":"MI","distance":2358.00834875162,"x":33,"y":4,"z":33}],"type":"bubble"},{"name":"Buddy's Pizza - Ann Arbor","data":[{"id":"3T0DimQdBFcaqfDzOvnSBg","name":"Buddy's Pizza - Ann Arbor","rating":4,"review_count":142,"latitude":42.2407680879754,"longitude":-83.768447405909,"address1":"3153 Ann Arbor-Saline Rd","city":"Ann Arbor","state":"MI","distance":4585.92933869268,"x":142,"y":4,"z":142}],"type":"bubble"},{"name":"Hello Faz Pizza","data":[{"id":"yn-wcQm-WFUO3ahLGYfprQ","name":"Hello Faz Pizza","rating":4,"review_count":100,"latitude":42.273701,"longitude":-83.777463,"address1":"2259 W Liberty St","city":"Ann Arbor","state":"MI","distance":3000.67370392457,"x":100,"y":4,"z":100}],"type":"bubble"},{"name":"Hungry Howie's Pizza","data":[{"id":"TWXeSWsM8WHFy7KGFlrzNQ","name":"Hungry Howie's Pizza","rating":4,"review_count":6,"latitude":42.304847,"longitude":-83.694006,"address1":"3397 Plymouth Rd","city":"Ann Arbor","state":"MI","distance":5000.86867938592,"x":6,"y":4,"z":6}],"type":"bubble"},{"name":"Joe's Pizza","data":[{"id":"s8x9YIRRASt8h_I41VzVCw","name":"Joe's Pizza","rating":4.5,"review_count":83,"latitude":42.27522,"longitude":-83.73545,"address1":"1107 S University Ave","city":"Ann Arbor","state":"MI","distance":505.404500764333,"x":83,"y":4.5,"z":83}],"type":"bubble"},{"name":"Jolly Pumpkin Cafe & Brewery","data":[{"id":"ZJVhCAjBeRlzLhgRVVJD5Q","name":"Jolly Pumpkin Cafe & Brewery","rating":4,"review_count":902,"latitude":42.279168,"longitude":-83.748462,"address1":"311 S Main St","city":"Ann Arbor","state":"MI","distance":652.992471449679,"x":902,"y":4,"z":902}],"type":"bubble"},{"name":"Lefty's Ann Arbor","data":[{"id":"XADd6_CGr3GSQyHMNbyrIw","name":"Lefty's Ann Arbor","rating":4,"review_count":9,"latitude":42.240212,"longitude":-83.769453,"address1":"3157 Ann Arbor-Saline Rd","city":"Ann Arbor","state":"MI","distance":4682.20939260661,"x":9,"y":4,"z":9}],"type":"bubble"},{"name":"Mani Osteria & Bar","data":[{"id":"4REtzXpQYy8dVev8RjWbSQ","name":"Mani Osteria & Bar","rating":4,"review_count":811,"latitude":42.2795793749763,"longitude":-83.744244702611,"address1":"341 E Liberty St","city":"Ann Arbor","state":"MI","distance":400.408883506073,"x":811,"y":4,"z":811}],"type":"bubble"},{"name":"Marco's Pizza","data":[{"id":"Yb36-uFrujmLQ2nAiXwkcw","name":"Marco's Pizza","rating":4,"review_count":1,"latitude":42.2403155,"longitude":-83.7700642,"address1":"3238 Ann Arbor Saline Rd","city":"Ann Arbor","state":"MI","distance":5189.92223054781,"x":1,"y":4,"z":1}],"type":"bubble"},{"name":"Marcos Pizza","data":[{"id":"9Ej_Kt9dYkBX-FRBVtvjuA","name":"Marcos Pizza","rating":4,"review_count":33,"latitude":42.24531,"longitude":-83.678917,"address1":"4068 Packard St","city":"Ann Arbor","state":"MI","distance":6206.32061591709,"x":33,"y":4,"z":33}],"type":"bubble"},{"name":"Mr Spots","data":[{"id":"WQGUTUmR5uge1Z6PZYd4Rw","name":"Mr Spots","rating":4,"review_count":109,"latitude":42.2716217,"longitude":-83.7407532,"address1":"808 S State St","city":"Ann Arbor","state":"MI","distance":573.862914974638,"x":109,"y":4,"z":109}],"type":"bubble"},{"name":"NeoPapalis","data":[{"id":"JXcDdqg4RZhSyr4ojCyY5A","name":"NeoPapalis","rating":4.5,"review_count":313,"latitude":42.2775307,"longitude":-83.7428818,"address1":"500 E William St","city":"Ann Arbor","state":"MI","distance":161.674133932361,"x":313,"y":4.5,"z":313}],"type":"bubble"},{"name":"Stadium Deli & Wine Shop","data":[{"id":"Wiry4DuTOnTR7H_G69MZFg","name":"Stadium Deli & Wine Shop","rating":4.5,"review_count":9,"latitude":42.258049,"longitude":-83.7380524,"address1":"1956 S Industrial Hwy","city":"Ann Arbor","state":"MI","distance":2110.46120808843,"x":9,"y":4.5,"z":9}],"type":"bubble"},{"name":"Stadium Market","data":[{"id":"EtjYm9PGiPZkdBA5mBCieA","name":"Stadium Market","rating":4,"review_count":36,"latitude":42.26111,"longitude":-83.73062,"address1":"1423 E Stadium Blvd","city":"Ann Arbor","state":"MI","distance":1951.52074144404,"x":36,"y":4,"z":36}],"type":"bubble"},{"name":"The Bar At 327 Braun Court","data":[{"id":"BwsoC9hsjG4znVRCCmRngA","name":"The Bar At 327 Braun Court","rating":4,"review_count":92,"latitude":42.2839546,"longitude":-83.7472842,"address1":"327 Braun Ct","city":"Ann Arbor","state":"MI","distance":943.050108417759,"x":92,"y":4,"z":92}],"type":"bubble"},{"name":"Tippins Market","data":[{"id":"p4Nad3u6PD03cJEn8VtiEw","name":"Tippins Market","rating":4.5,"review_count":45,"latitude":42.214255,"longitude":-83.7966409,"address1":"4845 Ann Arbor Saline Rd","city":"Ann Arbor","state":"MI","distance":8312.88118002235,"x":45,"y":4.5,"z":45}],"type":"bubble"}],"xAxis":{"type":"linear","title":{"text":"review_count"},"categories":null}},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="overall-distribution-of-customer-reviews-across-different-cities-in-midwest-along-with-average-customer-rating-1" class="section level3">
+<h3>Overall distribution of customer reviews across different cities in Midwest along with average customer rating</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-ec060eb8ac04b6adcd26" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ec060eb8ac04b6adcd26">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":null},"yAxis":{"title":{"text":"rating"},"type":"linear"},"credits":{"enabled":false},"exporting":{"enabled":false},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":true},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"name":"Brass Rail Pizza Bar","data":[{"id":"7MIK2hnLMK0NwXZXxjHl-w","name":"Brass Rail Pizza Bar","rating":4,"review_count":139,"latitude":42.33702,"longitude":-83.05139,"address1":"18 W Adams Ave","city":"Detroit","state":"MI","distance":4299.66272432566,"x":139,"y":4,"z":139}],"type":"bubble"},{"name":"Buddy's Pizza","data":[{"id":"TUR6H5mBXMDGt3qjv5sekg","name":"Buddy's Pizza","rating":4.5,"review_count":267,"latitude":42.41897,"longitude":-83.06405,"address1":"17125 Conant St","city":"Detroit","state":"MI","distance":6660.85660367099,"x":267,"y":4.5,"z":267}],"type":"bubble"},{"name":"Buddy's Pizza - Downtown","data":[{"id":"fb2TGeYOov5W4CUP_nYBqg","name":"Buddy's Pizza - Downtown","rating":4.5,"review_count":50,"latitude":42.3361989785321,"longitude":-83.0495368518519,"address1":"1565 Broadway St","city":"Downtown Detroit","state":"MI","distance":4482.76094639288,"x":50,"y":4.5,"z":50}],"type":"bubble"},{"name":"Chicago's Pizza","data":[{"id":"1t6ETjkFiNTI12e-pdW-Qg","name":"Chicago's Pizza","rating":4,"review_count":30,"latitude":42.31955,"longitude":-83.0981,"address1":"4650 W Vernor Hwy","city":"Detroit","state":"MI","distance":4806.33172644567,"x":30,"y":4,"z":30}],"type":"bubble"},{"name":"Dan & Vi's Pizza","data":[{"id":"jbr7V97_txcxC7bVYcf4cA","name":"Dan & Vi's Pizza","rating":4.5,"review_count":32,"latitude":42.3736333791563,"longitude":-83.0462662317685,"address1":"5951 Chene St","city":"Detroit","state":"MI","distance":3878.76914410292,"x":32,"y":4.5,"z":32}],"type":"bubble"},{"name":"Eat-N-Out Pizza & Gelato","data":[{"id":"M5UMOhLFzoF8GxMve9sErA","name":"Eat-N-Out Pizza & Gelato","rating":4,"review_count":61,"latitude":42.3351522901373,"longitude":-83.0420966697811,"address1":"531 Monroe Ave","city":"Detroit","state":"MI","distance":5030.72642360537,"x":61,"y":4,"z":61}],"type":"bubble"},{"name":"Giovanni's Ristorante","data":[{"id":"66OeH9RD62D3bXbqefjYvw","name":"Giovanni's Ristorante","rating":4.5,"review_count":280,"latitude":42.2903220548957,"longitude":-83.1459120674591,"address1":"330 S Oakwood","city":"Detroit","state":"MI","distance":9201.46350336191,"x":280,"y":4.5,"z":280}],"type":"bubble"},{"name":"Grandma Bob's","data":[{"id":"8Pi4ES2PUynNKgOIMhnwcw","name":"Grandma Bob's","rating":4.5,"review_count":51,"latitude":42.33113,"longitude":-83.07584,"address1":"2135 Michigan Ave","city":"Detroit","state":"MI","distance":3697.06029804881,"x":51,"y":4.5,"z":51}],"type":"bubble"},{"name":"Jolly Pumpkin Pizzeria and Brewery- Detroit","data":[{"id":"KYoip_XCktFrFQl6pNS8Vw","name":"Jolly Pumpkin Pizzeria and Brewery- Detroit","rating":4,"review_count":455,"latitude":42.3512597416829,"longitude":-83.0652487171967,"address1":"441 W Canfield","city":"Detroit","state":"MI","distance":2451.00596973517,"x":455,"y":4,"z":455}],"type":"bubble"},{"name":"La Lanterna","data":[{"id":"MG_dEntWnCwiyczRERCc1A","name":"La Lanterna","rating":4,"review_count":169,"latitude":42.3330441,"longitude":-83.0490294,"address1":"1224 Griswold St","city":"Detroit","state":"MI","distance":4745.73076442929,"x":169,"y":4,"z":169}],"type":"bubble"},{"name":"La Noria Bistro","data":[{"id":"HTCstEV_jNFvRn0Tw40vWg","name":"La Noria Bistro","rating":4.5,"review_count":66,"latitude":42.3311517387629,"longitude":-83.1109030544758,"address1":"5517 Michigan Ave","city":"Detroit","state":"MI","distance":3870.31091714944,"x":66,"y":4.5,"z":66}],"type":"bubble"},{"name":"Michigan & Trumbull","data":[{"id":"fGj2fwdxSuIB3hYPaUq1WQ","name":"Michigan & Trumbull","rating":4.5,"review_count":85,"latitude":42.3320754543569,"longitude":-83.0664473117439,"address1":"1441 W Elizabeth St","city":"Detroit","state":"MI","distance":3940.39218442374,"x":85,"y":4.5,"z":85}],"type":"bubble"},{"name":"Mike's Pizza Bar","data":[{"id":"-PS3rvMF35seecA1_a13vA","name":"Mike's Pizza Bar","rating":4,"review_count":78,"latitude":42.34079,"longitude":-83.05384,"address1":"2515 Woodward Ave","city":"Detroit","state":"MI","distance":3885.1835492049,"x":78,"y":4,"z":78}],"type":"bubble"},{"name":"Mootz Pizzeria + Bar","data":[{"id":"PWkqo_whZ0qhLTpLsi5xjw","name":"Mootz Pizzeria + Bar","rating":4,"review_count":206,"latitude":42.334431,"longitude":-83.046934,"address1":"1230 Library St","city":"Detroit","state":"MI","distance":4773.14821374689,"x":206,"y":4,"z":206}],"type":"bubble"},{"name":"Motor City Brewing Works","data":[{"id":"JoZ0n3kkbSuGr4Xemig0mA","name":"Motor City Brewing Works","rating":4,"review_count":507,"latitude":42.35183,"longitude":-83.066046,"address1":"470 W Canfield","city":"Detroit","state":"MI","distance":2360.01436428042,"x":507,"y":4,"z":507}],"type":"bubble"},{"name":"Ottava Via","data":[{"id":"ngu3My-XGzNNL7Bxul5ulQ","name":"Ottava Via","rating":4,"review_count":664,"latitude":42.331716,"longitude":-83.065696,"address1":"1400 Michigan Ave","city":"Detroit","state":"MI","distance":3996.28784473115,"x":664,"y":4,"z":664}],"type":"bubble"},{"name":"Paul's Pizzeria","data":[{"id":"LWH5vAUTrWemHqTWIkZ83g","name":"Paul's Pizzeria","rating":4,"review_count":17,"latitude":42.31264,"longitude":-83.1235,"address1":"7635 W Vernor Hwy","city":"Detroit","state":"MI","distance":6145.87456680581,"x":17,"y":4,"z":17}],"type":"bubble"},{"name":"Pie Sci","data":[{"id":"DuFQa_-drBCwMRGsMzMPsQ","name":"Pie Sci","rating":4.5,"review_count":238,"latitude":42.3539638448561,"longitude":-83.0800281465053,"address1":"5163 Trumbull Ave","city":"Detroit","state":"MI","distance":1300.98551045937,"x":238,"y":4.5,"z":238}],"type":"bubble"},{"name":"PizzaPlex","data":[{"id":"K-M8mX1aMXfqNZ4BufvaUw","name":"PizzaPlex","rating":4.5,"review_count":67,"latitude":42.3200025869088,"longitude":-83.0967996652594,"address1":"4458 Vernor Hwy","city":"Detroit","state":"MI","distance":4740.68612105324,"x":67,"y":4.5,"z":67}],"type":"bubble"},{"name":"POP + Offworld","data":[{"id":"SHCi5sWbgwGqnwzUAN3uHw","name":"POP + Offworld","rating":4,"review_count":45,"latitude":42.3312951,"longitude":-83.0441362,"address1":"128 Cadillac Square","city":"Detroit","state":"MI","distance":5194.13604858336,"x":45,"y":4,"z":45}],"type":"bubble"},{"name":"Royal Barbecue Pizza","data":[{"id":"Gm81oORyOZDdaqQT-vadPg","name":"Royal Barbecue Pizza","rating":4,"review_count":32,"latitude":42.37757,"longitude":-83.03192,"address1":"5844 Mt Elliott St","city":"Detroit","state":"MI","distance":5139.14034412039,"x":32,"y":4,"z":32}],"type":"bubble"},{"name":"San Morello","data":[{"id":"A7qhrIwaUgdwcLD44JY5XA","name":"San Morello","rating":4,"review_count":333,"latitude":42.33439,"longitude":-83.04848,"address1":"1400 Woodward Ave","city":"Detroit","state":"MI","distance":4681.86687622963,"x":333,"y":4,"z":333}],"type":"bubble"},{"name":"Sicily's Pizzeria & Subs","data":[{"id":"-FIq8Wuw7CU4a30-ykAJtw","name":"Sicily's Pizzeria & Subs","rating":4,"review_count":62,"latitude":42.32372,"longitude":-83.08766,"address1":"3554 W Vernor Hwy","city":"Detroit","state":"MI","distance":4320.61511976202,"x":62,"y":4,"z":62}],"type":"bubble"},{"name":"Supino Pizzeria","data":[{"id":"8ctLeteWujq_EfH2lRSTAw","name":"Supino Pizzeria","rating":4.5,"review_count":882,"latitude":42.345476174914,"longitude":-83.040064828648,"address1":"2457 Russell St","city":"Detroit","state":"MI","distance":4587.88405494946,"x":882,"y":4.5,"z":882},{"id":"QjiScrrpktNME-EXhK7Gig","name":"Supino Pizzeria","rating":4.5,"review_count":2,"latitude":42.3693032,"longitude":-83.0728591,"address1":"6519 Woodward Ave","city":"Detroit","state":"MI","distance":1667.5340622038,"x":2,"y":4.5,"z":2}],"type":"bubble"},{"name":"Toarmina's Pizza","data":[{"id":"3OC3z9P2RFJBMuT66Hy_7g","name":"Toarmina's Pizza","rating":4.5,"review_count":2,"latitude":42.3815,"longitude":-83.1103399,"address1":"2470 Collingwood St","city":"Detroit","state":"MI","distance":2742.93123800492,"x":2,"y":4.5,"z":2}],"type":"bubble"},{"name":"Town Pump Tavern","data":[{"id":"lUUQ91Ljk_wtO43wu3lZAA","name":"Town Pump Tavern","rating":5,"review_count":2,"latitude":42.33803855796,"longitude":-83.0539966666666,"address1":"","city":"Detroit","state":"MI","distance":4072.13861873349,"x":2,"y":5,"z":2}],"type":"bubble"},{"name":"Value Pizza","data":[{"id":"DrZVJrQl2eo1yX_zG0588g","name":"Value Pizza","rating":4,"review_count":5,"latitude":42.352653,"longitude":-83.074443,"address1":"1127 W Warren Ave","city":"Detroit","state":"MI","distance":1738.94116314967,"x":5,"y":4,"z":5}],"type":"bubble"},{"name":"Z's Villa","data":[{"id":"oiAg2xABaFCKiZTyBMKIvg","name":"Z's Villa","rating":4,"review_count":109,"latitude":42.3665009,"longitude":-83.0696411,"address1":"42 Piquette St","city":"Detroit","state":"MI","distance":1808.77545671152,"x":109,"y":4,"z":109}],"type":"bubble"}],"xAxis":{"type":"linear","title":{"text":"review_count"},"categories":null}},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="overall-distribution-of-customer-reviews-across-different-cities-in-midwest-along-with-average-customer-rating-2" class="section level3">
+<h3>Overall distribution of customer reviews across different cities in Midwest along with average customer rating</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-ca7bf4cc85de3a85e35d" style="width:100%;height:500px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ca7bf4cc85de3a85e35d">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":null},"yAxis":{"title":{"text":"rating"},"type":"linear"},"credits":{"enabled":false},"exporting":{"enabled":false},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":true},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"name":"Bartoli’s Pizzeria","data":[{"id":"krWnipMm4KE35Op0xQaAdw","name":"Bartoli’s Pizzeria","rating":4.5,"review_count":18,"latitude":41.894129,"longitude":-87.667541,"address1":"658 N Ashland Ave","city":"Chicago","state":"IL","distance":1490.07535046338,"x":18,"y":4.5,"z":18}],"type":"bubble"},{"name":"Bob's Pizza","data":[{"id":"1wSxClt75nOBS31--dlWYg","name":"Bob's Pizza","rating":4.5,"review_count":208,"latitude":41.853945,"longitude":-87.6683543622494,"address1":"1659 W 21st St","city":"Chicago","state":"IL","distance":5747.80619184637,"x":208,"y":4.5,"z":208},{"id":"p8w4d-51TEmv5KjrtWheRw","name":"Bob's Pizza","rating":4.5,"review_count":49,"latitude":41.9096602,"longitude":-87.633534,"address1":"1512 N LaSalle Dr","city":"Chicago","state":"IL","distance":3694.33973113841,"x":49,"y":4.5,"z":49}],"type":"bubble"},{"name":"Bongiorno's Italian Deli & Pizzeria","data":[{"id":"hxq4TNNazA-sjqFvVgx_Pw","name":"Bongiorno's Italian Deli & Pizzeria","rating":4,"review_count":637,"latitude":41.889903,"longitude":-87.625788,"address1":"405 N Wabash Ave","city":"Chicago","state":"IL","distance":4624.357891488,"x":637,"y":4,"z":637}],"type":"bubble"},{"name":"Chef Bill Kim's Pizza and Parm Shop","data":[{"id":"GRAxtNGcadDD5dphCFmD8A","name":"Chef Bill Kim's Pizza and Parm Shop","rating":4.5,"review_count":3,"latitude":41.90954,"longitude":-87.67768,"address1":"1542 North Damen Ave","city":"Chicago","state":"IL","distance":499.380739558477,"x":3,"y":4.5,"z":3}],"type":"bubble"},{"name":"Chicago Pizza And Oven Grinder Company","data":[{"id":"QNbWTNuAEMWOurHN8rMXnA","name":"Chicago Pizza And Oven Grinder Company","rating":4,"review_count":2562,"latitude":41.92084,"longitude":-87.63721,"address1":"2121 N Clark St","city":"Chicago","state":"IL","distance":3773.74107523843,"x":2562,"y":4,"z":2562}],"type":"bubble"},{"name":"Coalfire Pizza","data":[{"id":"wiNuegM8MNw9WIP0wfMmeA","name":"Coalfire Pizza","rating":4.5,"review_count":1093,"latitude":41.89075,"longitude":-87.65988,"address1":"1321 W Grand Ave","city":"Chicago","state":"IL","distance":2172.25503125401,"x":1093,"y":4.5,"z":1093}],"type":"bubble"},{"name":"Craft Pizza","data":[{"id":"8-eWe05s8Z7I1AejHXNsEA","name":"Craft Pizza","rating":4.5,"review_count":271,"latitude":41.9048454,"longitude":-87.6775072,"address1":"1252 N Damen Ave","city":"Chicago","state":"IL","distance":40.8992181234782,"x":271,"y":4.5,"z":271}],"type":"bubble"},{"name":"Crushed Pizzeria","data":[{"id":"NTP9UXFixe_6WTitLZfu6Q","name":"Crushed Pizzeria","rating":4.5,"review_count":79,"latitude":41.961405,"longitude":-87.669747,"address1":"1607 W Montrose Ave","city":"Chicago","state":"IL","distance":6294.35813980384,"x":79,"y":4.5,"z":79}],"type":"bubble"},{"name":"Dante's Pizzeria","data":[{"id":"DfWqQLBJRCIUfQtOgDH1JQ","name":"Dante's Pizzeria","rating":4,"review_count":358,"latitude":41.9174418,"longitude":-87.7034462,"address1":"3028 W Armitage Ave","city":"Chicago","state":"IL","distance":2526.13134361619,"x":358,"y":4,"z":358}],"type":"bubble"},{"name":"Dimo's Pizza","data":[{"id":"11O_S3IFvyF9JAB5uhLdAw","name":"Dimo's Pizza","rating":4,"review_count":426,"latitude":41.911037,"longitude":-87.677126,"address1":"1615 N Damen Ave","city":"Chicago","state":"IL","distance":655.709529524877,"x":426,"y":4,"z":426},{"id":"xlX-nO0SaNwjGueCsgV-0g","name":"Dimo's Pizza","rating":4,"review_count":950,"latitude":41.94521,"longitude":-87.65467,"address1":"3463 N Clark St","city":"Chicago","state":"IL","distance":4844.8254817716,"x":950,"y":4,"z":950}],"type":"bubble"},{"name":"Fat Chris's Pizza and Such","data":[{"id":"aFBDlYavQOC58AnxSxcKQg","name":"Fat Chris's Pizza and Such","rating":4,"review_count":245,"latitude":41.9762649,"longitude":-87.67228,"address1":"1706 W Foster Ave","city":"Chicago","state":"IL","distance":7919.32387335099,"x":245,"y":4,"z":245}],"type":"bubble"},{"name":"Forno Rosso Pizzeria Napoletana","data":[{"id":"2cDt9At556hf146QH_XkhQ","name":"Forno Rosso Pizzeria Napoletana","rating":4.5,"review_count":455,"latitude":41.8845699,"longitude":-87.65406,"address1":"1048 W Randolph St","city":"Chicago","state":"IL","distance":2998.96528771285,"x":455,"y":4.5,"z":455}],"type":"bubble"},{"name":"Gallucci Pizzeria Napoletana","data":[{"id":"XsQAbUtRqYp917LspePHeg","name":"Gallucci Pizzeria Napoletana","rating":4.5,"review_count":75,"latitude":41.91064,"longitude":-87.63437,"address1":"1551 N Wells St","city":"Chicago","state":"IL","distance":3628.96207338111,"x":75,"y":4.5,"z":75}],"type":"bubble"},{"name":"Giordano's","data":[{"id":"Bxd9Y2PsdvIOGIKFQh53RQ","name":"Giordano's","rating":4,"review_count":2796,"latitude":41.885165,"longitude":-87.623753,"address1":"130 E Randolph","city":"Chicago","state":"IL","distance":4992.86923857788,"x":2796,"y":4,"z":2796}],"type":"bubble"},{"name":"Happy Camper - Old Town","data":[{"id":"AqJM4ZZqKnYU5z4E8DruhA","name":"Happy Camper - Old Town","rating":4,"review_count":641,"latitude":41.9042336,"longitude":-87.6343073,"address1":"1209 N Wells St","city":"Chicago","state":"IL","distance":3597.9137644194,"x":641,"y":4,"z":641}],"type":"bubble"},{"name":"Homeslice","data":[{"id":"qbpo-OPav2tv4TV5C8BFKw","name":"Homeslice","rating":4,"review_count":1143,"latitude":41.921917,"longitude":-87.652489,"address1":"938 W Webster Ave","city":"Chicago","state":"IL","distance":2801.33233170682,"x":1143,"y":4,"z":1143}],"type":"bubble"},{"name":"Jimmy's Pizza Café","data":[{"id":"0ZENqrACvQ4tiMvFEkgVPg","name":"Jimmy's Pizza Café","rating":4.5,"review_count":658,"latitude":41.9757474517431,"longitude":-87.6921836227971,"address1":"5159 N Lincoln Ave","city":"Chicago","state":"IL","distance":7939.12501234535,"x":658,"y":4.5,"z":658}],"type":"bubble"},{"name":"Knead Great Pizza","data":[{"id":"GPN0FxOs2WU1_0JGj4KvIA","name":"Knead Great Pizza","rating":4.5,"review_count":156,"latitude":41.910211,"longitude":-87.680272,"address1":"2101 W North Ave","city":"Chicago","state":"IL","distance":598.817734004726,"x":156,"y":4.5,"z":156}],"type":"bubble"},{"name":"La Crosta Woodfire Pizzeria Italiana","data":[{"id":"Z-SJv3keY-u2bIAnkrDq_Q","name":"La Crosta Woodfire Pizzeria Italiana","rating":4.5,"review_count":219,"latitude":41.9248027560034,"longitude":-87.6479495139774,"address1":"2360 N Lincoln Ave","city":"Chicago","state":"IL","distance":3278.22379216048,"x":219,"y":4.5,"z":219}],"type":"bubble"},{"name":"Lou Malnati's Pizzeria","data":[{"id":"8vFJH_paXsMocmEO_KAa3w","name":"Lou Malnati's Pizzeria","rating":4,"review_count":6206,"latitude":41.890357,"longitude":-87.633704,"address1":"439 N Wells St","city":"Chicago","state":"IL","distance":4000.99905317202,"x":6206,"y":4,"z":6206},{"id":"84r_TaEPqE1bnYFLqYdOtQ","name":"Lou Malnati's Pizzeria","rating":4,"review_count":361,"latitude":41.908901,"longitude":-87.6774103,"address1":"1520 N Damen Ave","city":"Chicago","state":"IL","distance":417.095977443604,"x":361,"y":4,"z":361},{"id":"cxAkuwv7p4gm4Coixw7h9A","name":"Lou Malnati's Pizzeria","rating":4,"review_count":2639,"latitude":41.871566,"longitude":-87.627275,"address1":"805 S State St","city":"Chicago","state":"IL","distance":5605.46845028599,"x":2639,"y":4,"z":2639}],"type":"bubble"},{"name":"Milly’s Pizza In The Pan","data":[{"id":"b04EoiyFImaaSL7tqv3L3Q","name":"Milly’s Pizza In The Pan","rating":5,"review_count":22,"latitude":41.913973,"longitude":-87.709744,"address1":"1801 N Spaulding Ave","city":"Chicago","state":"IL","distance":2821.95557191182,"x":22,"y":5,"z":22}],"type":"bubble"},{"name":"My Pi Pizza","data":[{"id":"Mp1-ZUhNcXUAM-D3h3nGkQ","name":"My Pi Pizza","rating":4,"review_count":395,"latitude":41.918194,"longitude":-87.677813,"address1":"2010 N Damen Ave","city":"Chicago","state":"IL","distance":1472.32361186247,"x":395,"y":4,"z":395}],"type":"bubble"},{"name":"Nancy's Pizza","data":[{"id":"TBoYnkPNFn9ASccYCYsJfw","name":"Nancy's Pizza","rating":4,"review_count":75,"latitude":41.88318,"longitude":-87.65308,"address1":"1000 W Washington","city":"Chicago","state":"IL","distance":3185.54319446856,"x":75,"y":4,"z":75}],"type":"bubble"},{"name":"Naty's Pizza 2","data":[{"id":"fQg65bPsZ5fA2y5k3oJbzg","name":"Naty's Pizza 2","rating":4,"review_count":41,"latitude":41.89569,"longitude":-87.6719,"address1":"1757 W Chicago Ave","city":"Chicago","state":"IL","distance":1151.38026246861,"x":41,"y":4,"z":41}],"type":"bubble"},{"name":"Paradise Park","data":[{"id":"nvVCxKOqBNtTjqbhh2H5Cg","name":"Paradise Park","rating":4,"review_count":364,"latitude":41.91025,"longitude":-87.67566,"address1":"1913 W North Ave","city":"Chicago","state":"IL","distance":592.258389141549,"x":364,"y":4,"z":364}],"type":"bubble"},{"name":"Parlor Pizza Bar - River North","data":[{"id":"8eEOnlfXZFYhyzr52ugvCg","name":"Parlor Pizza Bar - River North","rating":4,"review_count":174,"latitude":41.8894378,"longitude":-87.6294351,"address1":"405 N Dearborn St","city":"Chicago","state":"IL","distance":4376.79488177721,"x":174,"y":4,"z":174}],"type":"bubble"},{"name":"Pat's Pizza","data":[{"id":"GFB10cCjtLsC-q6qXksPuw","name":"Pat's Pizza","rating":4,"review_count":443,"latitude":41.93083,"longitude":-87.65579,"address1":"2679 N Lincoln Ave","city":"Chicago","state":"IL","distance":3388.94682729848,"x":443,"y":4,"z":443}],"type":"bubble"},{"name":"Paula & Monica's Pizzeria","data":[{"id":"_8a4j6jZlm5QBDkIPYobyw","name":"Paula & Monica's Pizzeria","rating":4,"review_count":200,"latitude":41.89635,"longitude":-87.6656299,"address1":"1518 W Chicago Ave","city":"Chicago","state":"IL","distance":1406.42909279821,"x":200,"y":4,"z":200}],"type":"bubble"},{"name":"Paulie Gee's Logan Square","data":[{"id":"Xh5vGcoKk-SaBw7GUZDFxg","name":"Paulie Gee's Logan Square","rating":4,"review_count":403,"latitude":41.92589,"longitude":-87.70168,"address1":"2451 N Milwaukee Ave","city":"Chicago","state":"IL","distance":3045.7609425217,"x":403,"y":4,"z":403}],"type":"bubble"},{"name":"Pequod's Pizzeria","data":[{"id":"DXwSYgiXqIVNdO9dazel6w","name":"Pequod's Pizzeria","rating":4,"review_count":6355,"latitude":41.92187,"longitude":-87.664486,"address1":"2207 N Clybourn Ave","city":"Chicago","state":"IL","distance":2158.70845815224,"x":6355,"y":4,"z":6355}],"type":"bubble"},{"name":"Phil's Pizza","data":[{"id":"VDB09Hx4zzfXiAVKbt0Y4w","name":"Phil's Pizza","rating":4,"review_count":390,"latitude":41.8309,"longitude":-87.65363,"address1":"1102 W 35th St","city":"Chicago","state":"IL","distance":8496.98020984807,"x":390,"y":4,"z":390}],"type":"bubble"},{"name":"Piece Brewery and Pizzeria","data":[{"id":"Z2nOMPedr7XYhgYhILJjEA","name":"Piece Brewery and Pizzeria","rating":4,"review_count":3568,"latitude":41.9103256994423,"longitude":-87.6760850295053,"address1":"1927 W North Ave","city":"Chicago","state":"IL","distance":591.061943178209,"x":3568,"y":4,"z":3568}],"type":"bubble"},{"name":"Pizza City USA","data":[{"id":"-gy7Xa9i6o9iyFijgW-nIg","name":"Pizza City USA","rating":5,"review_count":42,"latitude":41.911271,"longitude":-87.7024817,"address1":"","city":"Chicago","state":"IL","distance":2155.33314567923,"x":42,"y":5,"z":42}],"type":"bubble"},{"name":"Pizza Friendly Pizza","data":[{"id":"I-rQdKELEOd9Ra5L_nPJIg","name":"Pizza Friendly Pizza","rating":4.5,"review_count":40,"latitude":41.90055,"longitude":-87.68662,"address1":"1039 N Western Ave","city":"Chicago","state":"IL","distance":898.745892532366,"x":40,"y":4.5,"z":40}],"type":"bubble"},{"name":"Robert's Pizza & Dough Company","data":[{"id":"Rn3o8GcYBPFJX5MWJn0r1Q","name":"Robert's Pizza & Dough Company","rating":4.5,"review_count":411,"latitude":41.8906916389975,"longitude":-87.6172096480698,"address1":"465 N McClurg","city":"Chicago","state":"IL","distance":5263.7863977485,"x":411,"y":4.5,"z":411}],"type":"bubble"},{"name":"Si-Pie Pizzeria","data":[{"id":"F7SE2NPZLwolMCzt3qXzzQ","name":"Si-Pie Pizzeria","rating":4,"review_count":335,"latitude":41.945351,"longitude":-87.6459276,"address1":"3477 N Broadway St","city":"Chicago","state":"IL","distance":5187.53656208147,"x":335,"y":4,"z":335}],"type":"bubble"},{"name":"Spacca Napoli","data":[{"id":"0fFLUKl71vv3eNV2xhikEw","name":"Spacca Napoli","rating":4,"review_count":1550,"latitude":41.963286,"longitude":-87.673801,"address1":"1769 W Sunnyside Ave","city":"Chicago","state":"IL","distance":6471.70348593388,"x":1550,"y":4,"z":1550}],"type":"bubble"},{"name":"The Art of Pizza","data":[{"id":"tW2jfL-qMccAYZSghPBbHA","name":"The Art of Pizza","rating":4,"review_count":1186,"latitude":41.9371221,"longitude":-87.6683814,"address1":"3033 N Ashland Ave","city":"Chicago","state":"IL","distance":3637.26295495018,"x":1186,"y":4,"z":1186}],"type":"bubble"},{"name":"The StopAlong","data":[{"id":"Nza-kbPzUfFMZGyJz12sYg","name":"The StopAlong","rating":4.5,"review_count":215,"latitude":41.91426,"longitude":-87.68393,"address1":"1812 N Milwaukee Ave","city":"Chicago","state":"IL","distance":1136.64756356247,"x":215,"y":4.5,"z":215}],"type":"bubble"},{"name":"Tortorice's Pizza","data":[{"id":"q2ZCe6KGHh16dsm2n2A08Q","name":"Tortorice's Pizza","rating":4,"review_count":120,"latitude":41.95381,"longitude":-87.6813899,"address1":"2101 W Irving Park Rd","city":"Chicago","state":"IL","distance":5421.21007537347,"x":120,"y":4,"z":120}],"type":"bubble"},{"name":"Tortorice's Pizza & Catering","data":[{"id":"fzK4OXv1CL-aeVaLwbbxBw","name":"Tortorice's Pizza & Catering","rating":4,"review_count":268,"latitude":41.89113,"longitude":-87.67142,"address1":"1746 W Grand Ave","city":"Chicago","state":"IL","distance":1646.83594195816,"x":268,"y":4,"z":268}],"type":"bubble"},{"name":"Vito & Angelo's Pizzeria & Restaurant","data":[{"id":"K_rdigDLXDYoyCjerZLQsg","name":"Vito & Angelo's Pizzeria & Restaurant","rating":4,"review_count":112,"latitude":41.924806,"longitude":-87.718771,"address1":"3644 W Fullerton Ave","city":"Chicago","state":"IL","distance":4035.48028542301,"x":112,"y":4,"z":112}],"type":"bubble"}],"xAxis":{"type":"linear","title":{"text":"review_count"},"categories":null}},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="location-markers-across-bangalore-for-pizza-delivery-store-featuring-zomato-ratings" class="section level3">
+<h3>Location Markers across Bangalore for Pizza Delivery Store featuring Zomato Ratings</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-76c320dc5ac88bfbdab0" style="width:576px;height:460.8px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-76c320dc5ac88bfbdab0">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addCircles","args":[[12.9698292229,12.9756167214,12.9747251143,12.9617080712,12.971754919,12.9718790727,12.9678195435,12.939076,12.9864065797,12.935475,12.9334244266,12.9789119479,12.9703300883,12.9744376038,12.9882900033,12.9750488899,12.9702180226,12.9334528556,12.9708819212,12.9409785912,12.9704519556,12.9699308337,12.9344622473,12.936282,12.9065954591,12.966323137,12.9312344015,12.9129344258,12.9368682365,12.9924292379,12.9253648304,12.9339606563,12.9308961909,12.9701268671,12.9242612886,13.0707284419,12.9348546967,12.932084991,13.0292242268,12.972353,12.9277385562,12.9924253176,12.9242616153,12.9347292175,12.9335335679,12.9812397512,12.950811,12.936946987,13.007936,13.0113391409,12.9797842641,12.9926611898,12.970126,12.9752253164,12.9620393786,12.9447817281,12.9395051948,13.0328381952,12.937889,13.0222332823,12.9784865701,12.910836,12.9882276039,13.0335120521,12.9270918619,12.9732692624,12.9122439022,12.9155298361,12.9483482395,12.935789727,12.9077614985,12.941003425,12.997763097,13.0301322968,12.9720476601,12.9913694436,12.9857152796,13.0233047042,12.9343,12.940296641,12.9686236133,12.9051186205,12.9375528101,12.9489380241,12.9148461824,13.0286447587,12.9947833764,12.979574841,12.9492134743,12.9700432262,12.9974612389,12.9106121937,12.9951623364,12.909859,12.9248465552,12.9484861283,12.9399407975,12.9305351057,12.9622860618,12.924401805],[77.5974812731,77.6025690883,77.6054118946,77.5946498662,77.5958531722,77.5951276347,77.6072498783,77.626065,77.5949770957,77.614142,77.622294724,77.6410540938,77.6446723938,77.6072840765,77.5938777253,77.6201469451,77.6403054222,77.6219483837,77.647411935,77.6244616136,77.6464751735,77.6414205506,77.61610955,77.615714,77.5897290185,77.641543597,77.6233783364,77.6829059422,77.6274861395,77.5783671811,77.5853399187,77.6196540892,77.5860195234,77.6402782649,77.5647770986,77.6519264281,77.6139315963,77.632086128,77.5707758591,77.618721,77.5619463623,77.578231059,77.5838385522,77.6114505529,77.6221317798,77.6405951008,77.699427,77.6197741181,77.557236,77.5555073842,77.646536529,77.5916464627,77.64582,77.6046357304,77.6015927643,77.5679823384,77.626786481,77.5692765042,77.626282,77.6395349577,77.6407161355,77.685732,77.5939665735,77.569088079,77.5858790427,77.6074714959,77.6437295973,77.5857238099,77.6989418641,77.6140755809,77.6012185961,77.6244773716,77.5473856553,77.5708033517,77.6422634348,77.5705689937,77.5878803059,77.6356068626,77.6109,77.6251358539,77.6489599049,77.5803761557,77.6191498339,77.5745031238,77.63828706,77.5717139617,77.5852279365,77.6421649042,77.5745966658,77.6097108051,77.6962546259,77.6846255735,77.6142078638,77.685574,77.6747024059,77.5977679342,77.625355795,77.5830593705,77.5991660357,77.5642674789],[644.82555780614,914.65840618233,568.946394662977,466.90470119715,483.321838943783,267.955220139485,684.689710744948,602.909611799314,327.566787083184,820.182906430023,632.21831672295,1044.98803820905,674.759216313494,343.365694267788,326.190128606002,359.026461420325,700.428440313498,721.803297304744,401.497197997695,386.652298583624,360.555127546399,698.140387028282,670.223843204642,291.719042916296,758.221603490695,629.126378401033,324.037034920393,1942.83298304306,455.96052460712,421.42615011411,170.58722109232,380.788655293195,267.207784317748,467.332857821917,682.275604136627,1247.87819918452,471.805044483418,1391.2943613772,1092.56578749291,243.310501211929,422.729227756965,871.492971859211,360.416425818802,396.48455203198,284.077454226836,336.452076825214,105.356537528527,235.796522451032,165.227116418583,442.379927211893,302.985148150862,304.466746952767,152.970585407784,131.909059582729,765.506368360186,1054.79855896754,1174.35088453154,584.636639289739,588.387627334226,404.351332383115,711.898869222307,482.2862220715,816.026960338934,419.523539268061,662.721661031236,327.566787083184,679.632253501848,338.230690505755,719.096655533872,310.4834939252,361.109401705356,185.202591774521,879.261053385171,559.106429939775,549.181208709839,489.387372129686,207.12315177208,324.961536185438,465.617869072913,1157.06525312966,857.846140050767,323.573793747269,500.499750249688,161.245154965971,467.546789102438,253.179778023443,144.22205101856,467.867502611583,570.26309717533,221.585198061603,635.295206970744,546.900356555013,134.536240470737,610.327780786685,925.634917232491,795.235814082842,816.149496109628,572.974694031072,541.848687365763,707.530918052349],null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":2,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2},["Lavelle Road  , rating : 4.2  votes :  4158","Church Street  , rating : 4.3  votes :  8366","Church Street  , rating : 4.6  votes :  3237","Shanti Nagar  , rating : 4.4  votes :  2180","UB City  , rating : 4.4  votes :  2336","JW Marriott Bengaluru, Lavelle Road  , rating : 4.5  votes :  718","Brigade Road  , rating : 4.1  votes :  4688","Koramangala 6th Block  , rating : 4.5  votes :  3635","Cunningham Road  , rating : 4.3  votes :  1073","Koramangala 7th Block  , rating : 4.3  votes :  6727","Koramangala 5th Block  , rating : 4.1  votes :  3997","Indiranagar  , rating : 4.2  votes :  10920","Indiranagar  , rating : 4.5  votes :  4553","Church Street  , rating : 4.0  votes :  1179","Cunningham Road  , rating : 4.1  votes :  1064","Ulsoor  , rating : 4.4  votes :  1289","Indiranagar  , rating : 4.4  votes :  4906","Koramangala 5th Block  , rating : 4.6  votes :  5210","Indiranagar  , rating : 4.4  votes :  1612","Koramangala 6th Block  , rating : 4.1  votes :  1495","Indiranagar  , rating : 4.2  votes :  1300","Indiranagar  , rating : 4.5  votes :  4874","Koramangala 5th Block  , rating : 4.3  votes :  4492","Koramangala 7th Block  , rating : 4.2  votes :  851","JP Nagar  , rating : 4.2  votes :  5749","Indiranagar  , rating : 4.1  votes :  3958","Koramangala 4th Block  , rating : 4.1  votes :  1050","Sarjapur Road  , rating : 4.5  votes :  37746","Koramangala 4th Block  , rating : 4.1  votes :  2079","Seshadripuram  , rating : 3.9  votes :  1776","Jayanagar  , rating : 3.9  votes :  291","Koramangala 5th Block  , rating : 4.3  votes :  1450","Jayanagar  , rating : 4.0  votes :  714","Indiranagar  , rating : 4.2  votes :  2184","Banashankari  , rating : 4.2  votes :  4655","Hennur  , rating : 4.4  votes :  15572","Koramangala 5th Block  , rating : 4.0  votes :  2226","Koramangala 4th Block  , rating : 4.1  votes :  19357","New BEL Road  , rating : 4.0  votes :  11937","MG Road  , rating : 4.2  votes :  592","Banashankari  , rating : 3.6  votes :  1787","Seshadripuram  , rating : 3.5  votes :  7595","Jayanagar  , rating : 4.2  votes :  1299","Forum Mall, Koramangala  , rating : 4.3  votes :  1572","Koramangala 5th Block  , rating : 3.6  votes :  807","Indiranagar  , rating : 3.9  votes :  1132","Marathahalli  , rating : 3.3  votes :  111","Koramangala 5th Block  , rating : 4.1  votes :  556","Malleshwaram  , rating : 4.0  votes :  273","Orion Mall, Malleshwaram  , rating : 4.4  votes :  1957","Indiranagar  , rating : 4.3  votes :  918","Vasanth Nagar  , rating : 3.9  votes :  927","Indiranagar  , rating : 4.2  votes :  234","Church Street  , rating : 4.3  votes :  174","Shanti Nagar  , rating : 3.6  votes :  5860","Basavanagudi  , rating : 4.2  votes :  11126","Koramangala 6th Block  , rating : 4.0  votes :  13791","New BEL Road  , rating : 4.0  votes :  3418","Koramangala 6th Block  , rating : 4.0  votes :  3462","Kalyan Nagar  , rating : 4.1  votes :  1635","Indiranagar  , rating : 3.7  votes :  5068","Sarjapur Road  , rating : 4.2  votes :  2326","Cunningham Road  , rating : 4.0  votes :  6659","New BEL Road  , rating : 3.9  votes :  1760","Jayanagar  , rating : 4.1  votes :  4392","Brigade Road  , rating : 3.7  votes :  1073","HSR  , rating : 4.2  votes :  4619","JP Nagar  , rating : 3.7  votes :  1144","Marathahalli  , rating : 4.4  votes :  5171","Koramangala 7th Block  , rating : 3.9  votes :  964","Bannerghatta Road  , rating : 4.2  votes :  1304","Koramangala 6th Block  , rating : 4.0  votes :  343","Basaveshwara Nagar  , rating : 4.1  votes :  7731","New BEL Road  , rating : 4.0  votes :  3126","Indiranagar  , rating : 4.1  votes :  3016","Mantri Square, Malleshwaram  , rating : 3.2  votes :  2395","Race Course Road  , rating : 4.2  votes :  429","Kalyan Nagar  , rating : 4.1  votes :  1056","Forum Mall, Koramangala  , rating : 3.8  votes :  2168","Koramangala 6th Block  , rating : 4.0  votes :  13388","Jeevan Bhima Nagar  , rating : 4.1  votes :  7359","JP Nagar  , rating : 3.9  votes :  1047","Koramangala 6th Block  , rating : 4.0  votes :  2505","Basavanagudi  , rating : 4.1  votes :  260","HSR  , rating : 4.1  votes :  2186","New BEL Road  , rating : 4.1  votes :  641","ITC Windsor  , rating : 4.2  votes :  208","Indiranagar  , rating : 3.9  votes :  2189","Basavanagudi  , rating : 4.0  votes :  3252","Garuda Mall, Magrath Road  , rating : 3.5  votes :  491","Phoenix Marketcity Bangalore, Whitefield  , rating : 4.0  votes :  4036","Sarjapur Road  , rating : 3.8  votes :  2991","Frazer Town  , rating : 4.1  votes :  181","Sarjapur Road  , rating : 4.3  votes :  3725","Bellandur  , rating : 4.1  votes :  8568","Wilson Garden  , rating : 3.9  votes :  6324","Koramangala 6th Block  , rating : 3.9  votes :  6661","Jayanagar  , rating : 3.8  votes :  3283","Shanti Nagar  , rating : 3.9  votes :  2936","Banashankari  , rating : 4.0  votes :  5006"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null,null]}],"limits":{"lat":[12.9051186205,13.0707284419],"lng":[77.5473856553,77.699427]}},"evals":[],"jsHooks":[]}</script>
+</div>
+
+</div>
+
+<script>
+
+$(document).ready(function () {
+
+  // add bootstrap table styles to pandoc tables
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+
+  // initialize mathjax
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+  document.getElementsByTagName("head")[0].appendChild(script);
+
+});
+</script>
+
+<div id="flexdashboard-source-code">
+<pre class="line-numbers"><code class="language-r">---
+title: "Customer Sentiments Analysis Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    runtime: shiny
+    logo: Logo.png
+    storyboard: true
+    social: menu
+    source: embed
+    theme: spacelab
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+require(tidyverse)
+require(httr)
+require(jsonlite)
+require(rlist)
+require(stringr)
+require(sqldf)
+require(ggplot2)
+require(beeswarm)
+require(googleway)
+require(highcharter)
+require(quantmod)
+require(leaflet)
+require(shiny)
+require(bslib)
+require(plotly)
+require(dygraphs)
+require(treemap)
+require(DT)
+require(romato)
+
+df_keys <- read.csv(file = '/Users/Abs/Documents/GitHub/R Sample Codes/R-Codes/keys.csv')
+
+df_yelp <- df_keys[grepl('\\Yelp', df_keys$name),]
+
+df_zomato <- df_keys[grepl('\\Zomato', df_keys$name),]
+
+client_id <- as.character(df_yelp$id)
+client_secret <- as.character(df_yelp$key)
+res <- POST("https://api.yelp.com/oauth2/token",
+            body = list(grant_type = "client_credentials",
+                        client_id = client_id,
+                        client_secret = client_secret))
+
+token <- content(res)$access_token
+
+yelp <- "https://api.yelp.com"
+location <- "Chicago, IL"
+categories <- NULL
+limit <- 50
+radius <- 8800
+term <- "Pizza"
+url <- modify_url(yelp, path = c("v3", "businesses", "search"),
+                  query = list(term = term, location = location, 
+                               limit = limit,
+                               radius = radius))
+res <- GET(url, add_headers('Authorization' = paste("bearer", client_secret)))
+
+results <- content(res)
+
+yelp_httr_parse <- function(x) {
+  
+  parse_list <- list(id = x$id, 
+                     name = x$name, 
+                     rating = x$rating, 
+                     review_count = x$review_count, 
+                     latitude = x$coordinates$latitude, 
+                     longitude = x$coordinates$longitude, 
+                     address1 = x$location$address1, 
+                     city = x$location$city, 
+                     state = x$location$state, 
+                     distance = x$distance)
+  
+  parse_list <- lapply(parse_list, FUN = function(x) ifelse(is.null(x), "", x))
+  
+  df <- tibble(id=parse_list$id,
+                   name=parse_list$name, 
+                   rating = parse_list$rating, 
+                   review_count = parse_list$review_count, 
+                   latitude=parse_list$latitude, 
+                   longitude = parse_list$longitude, 
+                   address1 = parse_list$address1, 
+                   city = parse_list$city, 
+                   state = parse_list$state, 
+                   distance= parse_list$distance)
+  df
+}
+
+results_list <- lapply(results$businesses, FUN = yelp_httr_parse)
+
+business_data <- do.call("rbind", results_list)
+
+
+#write.table(business_data, "/Users/Abs/Documents/GitHub/R Sample Codes/R-Codes/analysis.csv",
+#            append = TRUE,
+#            sep = ",",
+#            col.names = FALSE,
+#            row.names = FALSE,
+#            quote = FALSE)
+
+df_new <- read.csv(file = '/Users/Abs/Documents/GitHub/R Sample Codes/R-Codes/analysis.csv')
+
+my_data <- as_tibble(df_new)
+
+df_good <- my_data %>% filter(rating > 3.5)
+
+zmt <- zomato$new(api_key = as.character(df_zomato$key))
+
+pizza_blr <- zmt$search(query = "Pizza", lat = 12.972442, lon = 77.580643)
+
+pizza_aus <- zmt$search(query = "Pizza", lat = -33.865143, lon = 151.209900)
+```
+
+### Location Markers across Midwest for Domino's Pizza Store featuring Yelp Ratings
+
+```{r}
+leaflet(df_new) %>% 
+addTiles() %>%
+addCircles(lng =df_new$longitude, lat = df_new$latitude, weight = 2,
+             radius = df_new$review_count*5, popup=paste(df_new$name," - ",df_new$address1,",",df_new$city," , rating :",df_new$rating," review : ",df_new$review_count)
+  )
+
+```
+
+*** 
+<p><b>Inference Points :</b></p>
+<p>
+- Ann Arbor have average rating 3.5 across all stores
+- Minneapolis Store has negative sentiments with rating 1.5 with most reviews (94), followed by Indianapolis Store with rating 2 and 60 reviews
+</p>
+\
+&nbsp;
+<p><b>References :</b></p>
+<p>
+- [Yelp API](https://www.yelp.com/developers/documentation/v3)
+- [leaflet visual](http://rstudio.github.io/leaflet/shapes.html)
+</p>
+
+### Overall distribution of customer reviews across different cities in Midwest along with average customer rating
+
+```{r}
+df_annarbor <- df_good[grepl('\\Ann Arbor', df_good$city),]
+hchart(df_annarbor, "scatter", hcaes(x = review_count, y = rating, z = review_count, group = name))
+```
+
+### Overall distribution of customer reviews across different cities in Midwest along with average customer rating
+
+```{r}
+df_detroit <- df_good[grepl('\\Detroit', df_good$city),]
+hchart(df_detroit, "scatter", hcaes(x = review_count, y = rating, z = review_count, group = name))
+```
+
+### Overall distribution of customer reviews across different cities in Midwest along with average customer rating
+
+```{r}
+df_chicago <- df_good[grepl('\\Chicago', df_good$city),]
+hchart(df_chicago, "scatter", hcaes(x = review_count, y = rating, z = review_count, group = name))
+```
+
+### Location Markers across Bangalore for Pizza Delivery Store featuring Zomato Ratings
+
+```{r}
+
+leaflet(pizza_blr) %>% 
+addTiles() %>%
+addCircles(lng =as.numeric(pizza_blr$longitude), lat = as.numeric(pizza_blr$latitude), weight = 2,
+             radius = ~sqrt(as.numeric(pizza_blr$votes))*10, popup=paste(pizza_blr$locality," , rating :",pizza_blr$aggregate_rating," votes : ",pizza_blr$votes)
+  )
+
+```
+</code></pre>
+</div>
+<script type="text/javascript">
+$(document).ready(function () {
+  FlexDashboard.init({
+    theme: "spacelab",
+    fillPage: true,
+    orientation: "columns",
+    storyboard: true,
+    defaultFigWidth: 576,
+    defaultFigHeight: 460,
+    defaultFigWidthMobile: 360,
+    defaultFigHeightMobile: 460,
+    resize_reload: true
+  });
+});
+</script>
+
+</body>
+</html>
